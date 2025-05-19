@@ -1,6 +1,7 @@
 import csv
 from datetime import datetime
 import logging
+import os
 
 class FinanceUtils:
     """Class to manage financial transactions with CRUD operations and analysis."""
@@ -16,12 +17,12 @@ class FinanceUtils:
             filemode='a'
         )
 
-    def load_transactions(self, filename='financial transactions.csv'):
+    def load_transactions(self, filename='financial_transactions.csv'):
         """
         Load transactions from a CSV file into self.transactions.
         
         Args:
-            filename (str): Path ro the CSV file.
+            filename (str): Path to the CSV file.
             
         Returns:
             bool: True if loading succeeds, False otherwise.
@@ -106,7 +107,22 @@ class FinanceUtils:
                         logging.error(f"Row {row_num}: Missing column {e}")
                         continue
 
-                print(f"Loaded {len(self.transactions)} transactions from '{filename}'.")
+                print(f"Loading {len(self.transactions)} transactions from '{filename}'.")
+
+                # Create a backup of the original file and save it with a timestamp to /snapshots
+                if not os.path.exists('snapshots'):
+                    os.makedirs('snapshots')
+                
+                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+                backup_filename = os.path.join('snapshots', f'backup_{timestamp}.csv')
+                with open(backup_filename, mode='w', encoding='utf-8', newline='') as backup_file:
+                    writer = csv.DictWriter(backup_file, fieldnames=reader.fieldnames)
+                    writer.writeheader()
+                    for transaction in self.transactions:
+                        writer.writerow(transaction)
+
+                print(f"Backup created: '{backup_filename}'")
+
                 return True
             
         except FileNotFoundError:
