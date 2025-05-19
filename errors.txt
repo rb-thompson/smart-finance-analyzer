@@ -1,3 +1,8 @@
 2025-05-19 13:54:56,585 - ERROR - File 'financial transactions.csv' not found.
 2025-05-19 13:55:14,549 - ERROR - File 'financial transactions.csv' not found.
 2025-05-19 14:00:21,509 - ERROR - Row 44: Invalid date format '2021-12'
+2025-05-19 19:14:23,541 - ERROR - Missing columns in CSV: {'type'}
+2025-05-19 19:15:13,434 - ERROR - Row 7: Invalid customer_id 'a'
+2025-05-19 19:16:04,283 - ERROR - Row 12: Invalid amount 'xx'
+2025-05-19 19:16:56,040 - ERROR - Row 8: Invalid transaction type 'loan'
+2025-05-19 19:20:24,023 - ERROR - Row 4: Empty description

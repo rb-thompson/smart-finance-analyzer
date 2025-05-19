@@ -10,12 +10,17 @@ class FinanceUtils:
         """Initialize transactions list and configure logging."""
         self.transactions = []
         # Configure logging to write to errors.txt
-        logging.basicConfig(
-            level=logging.ERROR,
-            format='%(asctime)s - %(levelname)s - %(message)s',
-            filename='errors.txt',
-            filemode='a'
-        )
+        # Protect against permissions issues
+        try:
+            logging.basicConfig(
+                level=logging.ERROR,
+                format='%(asctime)s - %(levelname)s - %(message)s',
+                filename='errors.txt',
+                filemode='a'
+            )
+        except IOError as e:
+            print(f"Error: Cannot configure logging to errors.txt: {e}")
+            logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
 
     def load_transactions(self, filename='financial_transactions.csv'):
         """
@@ -87,10 +92,11 @@ class FinanceUtils:
                             amount = -amount
 
                         # Validate description
-                        description = row['description'].strip()
-                        if not description:
+                        description = row.get('description')
+                        if description is None or not str(description).strip():
                             logging.error(f"Row {row_num}: Empty description")
                             continue
+                        description = str(description).strip()
 
                         # Create transaction dictionary
                         transaction = {
@@ -107,21 +113,20 @@ class FinanceUtils:
                         logging.error(f"Row {row_num}: Missing column {e}")
                         continue
 
-                print(f"Loading {len(self.transactions)} transactions from '{filename}'.")
+                print(f"Loaded {len(self.transactions)} transactions from '{filename}'.")
 
                 # Create a backup of the original file and save it with a timestamp to /snapshots
                 if not os.path.exists('snapshots'):
                     os.makedirs('snapshots')
-                
+
                 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
                 backup_filename = os.path.join('snapshots', f'backup_{timestamp}.csv')
-                with open(backup_filename, mode='w', encoding='utf-8', newline='') as backup_file:
-                    writer = csv.DictWriter(backup_file, fieldnames=reader.fieldnames)
-                    writer.writeheader()
-                    for transaction in self.transactions:
-                        writer.writerow(transaction)
-
-                print(f"Backup created: '{backup_filename}'")
+                try:
+                    with open(filename, 'rb') as src_file, open(backup_filename, 'wb') as dst_file:
+                        dst_file.write(src_file.read())
+                    print(f"Backup created: '{backup_filename}'")
+                except Exception as e:
+                    logging.error(f"Failed to create backup: {e}")
 
                 return True
             
@@ -139,3 +144,4 @@ class FinanceUtils:
             logging.error(f"IO error reading {filename}: {e}")
             print(f"Error: IO error reading file: {e}")
             return False
+        
