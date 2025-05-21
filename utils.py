@@ -296,9 +296,9 @@ class FinanceUtils:
             transactions = [t for t in transactions if t['date'].year == filter_year]
 
         if not transactions:
-            filter_msg = f"{filter_type} transactions in {filter_year}" if filter_type and filter_year else \
-                         f"{filter_type} transactions" if filter_type else \
-                         f"transactions in {filter_year}" if filter_year else "transactions"
+            filter_msg = f"{filter_type.capitalize()} transactions in {filter_year}" if filter_type and filter_year else \
+                         f"{filter_type.capitalize()} transactions" if filter_type else \
+                         f"All transactions in {filter_year}" if filter_year else "Transactions"
             print(f"No {filter_msg} found.")
             return False
         
@@ -327,9 +327,9 @@ class FinanceUtils:
             ]
 
             headers = ['ID', 'Date', 'Customer', 'Amount', 'Type', 'Description']
-            filter_msg = f"{filter_type} transactions in {filter_year}" if filter_type and filter_year else \
-                         f"{filter_type} transactions" if filter_type else \
-                         f"transactions in {filter_year}" if filter_year else "All transactions"
+            filter_msg = f"{filter_type.capitalize()} transactions in {filter_year}" if filter_type and filter_year else \
+                         f"{filter_type.capitalize()} transactions" if filter_type else \
+                         f"Transactions in {filter_year}" if filter_year else "All transactions"
             print(f"\n{filter_msg} (Page {current_page} of {total_pages}, {len(page_transactions)} transactions):")
             print(tabulate(table, headers=headers, tablefmt='grid', stralign='left'))
 
