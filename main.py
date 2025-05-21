@@ -31,7 +31,10 @@ def main():
             filter_type = input("Enter type to filter (credit/debit/transfer, or press Enter for all): ").strip()
             if not filter_type:
                 filter_type = None
-            if not finance.view_transactions(filter_type):
+            filter_year = input("Enter year to filter (e.g., 2020, or press Enter for all): ").strip()
+            if not filter_year:
+                filter_year = None
+            if not finance.view_transactions(filter_type, filter_year):
                 print("No transactions displayed.")
         elif choice == '9':
             print("Exiting the program.")

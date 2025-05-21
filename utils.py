@@ -171,7 +171,7 @@ class FinanceUtils:
         while True:
             date_input = input("Enter date (YYYY-MM-DD): ").strip()
             if date_input.lower() == 'cancel':
-                print("Transaction addition cancelled.")
+                print("Transaction cancelled.")
                 return False
             try:
                 date_obj = datetime.strptime(date_input, '%Y-%m-%d').date()
@@ -181,16 +181,20 @@ class FinanceUtils:
                 print("Invalid date format. Please enter in YYYY-MM-DD format.")
 
         # Customer ID input with suggestions
-        customer_ids = sorted(set(t['customer_id'] for t in self.transactions))
+        customer_ids = sorted(set(t['customer_id'] for t in self.transactions if t['customer_id'] > 0))
         if customer_ids:
             print(f"Valid customer IDs: {', '.join(map(str, customer_ids[:10]))}{'...' if len(customer_ids) > 10 else ''}")
         while True:
-            customer_input = input("Enter customer ID (integer): ").strip()
+            customer_input = input("Enter customer ID (positive integer): ").strip()
             if customer_input.lower() == 'cancel':
                 print("Transaction cancelled.")
                 return False
             try:
                 customer_id = int(customer_input)
+                if customer_id <= 0:
+                    logging.error(f"Non-positive customer ID input: {customer_input}")
+                    print("Error: Customer ID must be a positive integer. Please try again.")
+                    continue
                 break
             except ValueError:
                 logging.error(f"Invalid customer ID input: {customer_input}")
@@ -258,41 +262,94 @@ class FinanceUtils:
         print(f"Transaction {transaction} added successfully!")
         return True
 
-    def view_transactions(self, filter_type=None):
+    def view_transactions(self, filter_type=None, filter_year=None):
         if not self.transactions:
             print("No transactions to display.")
             return False
         
-        # Apply filter
+        # Validate filter_type
         valid_types = {'credit', 'debit', 'transfer'}
         if filter_type and filter_type.lower() not in valid_types:
             logging.error(f"Invalid filter type: {filter_type}")
             print(f"Error: Filter type must be one of {', '.join(valid_types)} or empty.")
             return False
         
-        transactions = (
-            [t for t in self.transactions if t['type'] == filter_type.lower()]
-            if filter_type else self.transactions
-        )
+        # Validate filter_year
+        current_year = datetime.now().year
+        if filter_year is not None:
+            try:
+                filter_year = int(filter_year)
+                if not (1900 <= filter_year <= current_year):
+                    logging.error(f"Invalid filter year: {filter_year}")
+                    print(f"Error: Year must be between 1900 and {current_year}.")
+                    return False
+            except ValueError:
+                logging.error(f"Invalid filter year input: {filter_year}")
+                print("Error: Year must be an integer.")
+                return False
+            
+        # Apply filters
+        transactions = self.transactions
+        if filter_type:
+            transactions = [t for t in transactions if t['type'] == filter_type.lower()]
+        if filter_year is not None:
+            transactions = [t for t in transactions if t['date'].year == filter_year]
 
         if not transactions:
-            print(f"No {filter_type} transactions found." if filter_type else "No transactions found.")
+            filter_msg = f"{filter_type} transactions in {filter_year}" if filter_type and filter_year else \
+                         f"{filter_type} transactions" if filter_type else \
+                         f"transactions in {filter_year}" if filter_year else "transactions"
+            print(f"No {filter_msg} found.")
             return False
         
-        # Prepare table data
-        table = [
-            [
-                t['transaction_id'],
-                t['date'].strftime('%b %d, %Y'),
-                t['customer_id'],
-                f"${t['amount']:,.2f}",
-                t['type'].capitalize(),
-                t['description'][:30] + ('...' if len(t['description']) > 30 else '')
-            ]
-            for t in transactions
-        ]
+        # Pagination
+        page_size = 10
+        total_pages = (len(transactions) + page_size - 1) // page_size
+        current_page = 1
 
-        headers = ['ID', 'Date', 'Customer', 'Amount', 'Type', 'Description']
-        print(f"\n{'Filtered' if filter_type else 'All'} Transactions:")
-        print(tabulate(table, headers=headers, tablefmt='grid', stralign='left'))
+        while True:
+            # Calculate slice for current page
+            start_idx = (current_page - 1) * page_size
+            end_idx = start_idx + page_size
+            page_transactions = transactions[start_idx:end_idx]
+
+            # Prepare table data
+            table = [
+                [
+                    t['transaction_id'],
+                    t['date'].strftime('%b %d, %Y'),
+                    t['customer_id'],
+                    f"${t['amount']:,.2f}",
+                    t['type'].capitalize(),
+                    t['description'][:30] + ('...' if len(t['description']) > 30 else '')
+                ]
+                for t in page_transactions
+            ]
+
+            headers = ['ID', 'Date', 'Customer', 'Amount', 'Type', 'Description']
+            filter_msg = f"{filter_type} transactions in {filter_year}" if filter_type and filter_year else \
+                         f"{filter_type} transactions" if filter_type else \
+                         f"transactions in {filter_year}" if filter_year else "All transactions"
+            print(f"\n{filter_msg} (Page {current_page} of {total_pages}, {len(page_transactions)} transactions):")
+            print(tabulate(table, headers=headers, tablefmt='grid', stralign='left'))
+
+            # Navigation prompt
+            if total_pages == 1:
+                break
+            print("\nEnter command (start, next, prev, end, exit):")
+            command = input("> ").strip().lower()
+            if command == 'exit':
+                break
+            elif command == 'start' and current_page > 1:
+                current_page = 1
+            elif command == 'next' and current_page < total_pages:
+                current_page += 1
+            elif command == 'prev' and current_page > 1:
+                current_page -= 1
+            elif command == 'end' and current_page < total_pages:
+                current_page = total_pages
+            else:
+                print("Invalid command. Use 'start', 'next', 'prev', 'end', or 'exit'.")
+
+        print(f"Displayed {len(transactions)} transactions across {total_pages} page(s).")
         return True

@@ -10,3 +10,5 @@
 2025-05-21 16:24:14,369 - ERROR - Invalid customer ID input: brandon
 2025-05-21 16:24:52,412 - ERROR - Invalid transaction type input: borrowed
 2025-05-21 16:25:02,353 - ERROR - Empty description input
+2025-05-21 17:28:11,962 - ERROR - Invalid filter year: 1891
+2025-05-21 17:29:01,086 - ERROR - Invalid filter year input: yesterday
