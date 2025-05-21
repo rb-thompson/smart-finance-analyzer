@@ -35,6 +35,7 @@ class FinanceUtils:
         """
         self.transactions = []
         required_columns = {'transaction_id', 'date', 'customer_id', 'amount', 'type', 'description'}
+        seen_ids = set()  # Track transaction_id duplicates
 
         try:
             with open(filename, mode='r', encoding='utf-8') as file:
@@ -52,6 +53,10 @@ class FinanceUtils:
                         # Validate transaction_id
                         try:
                             transaction_id = int(row['transaction_id'])
+                            if transaction_id in seen_ids:
+                                logging.error(f"Row {row_num}: Duplicate transaction_id '{transaction_id}'")
+                                continue
+                            seen_ids.add(transaction_id)
                         except ValueError:
                             logging.error(f"Row {row_num}: Invalid transaction_id '{row['transaction_id']}'")
                             continue
@@ -67,6 +72,9 @@ class FinanceUtils:
                         # Validate customer_id
                         try:
                             customer_id = int(row['customer_id'])
+                            if customer_id <= 0:
+                                logging.error(f"Row {row_num}: Non-positive customer_id '{customer_id}'")
+                                continue
                         except ValueError:
                             logging.error(f"Row {row_num}: Invalid customer_id '{row['customer_id']}'")
                             continue
@@ -77,7 +85,6 @@ class FinanceUtils:
                             if amount < 0:
                                 logging.error(f"Row {row_num}: Negative amount '{amount}'")
                                 continue
-
                         except ValueError:
                             logging.error(f"Row {row_num}: Invalid amount '{row['amount']}'")
                             continue
@@ -114,6 +121,11 @@ class FinanceUtils:
                         logging.error(f"Row {row_num}: Missing column {e}")
                         continue
 
+                if not self.transactions:
+                    logging.error(f"No valid transactions in '{filename}'")
+                    print(f"Error: No valid transactions in CSV")
+                    return False
+                
                 print(f"Loaded {len(self.transactions)} transactions from '{filename}'.")
 
                 # Create a backup of the original file and save it with a timestamp to /snapshots
@@ -128,6 +140,7 @@ class FinanceUtils:
                     print(f"Backup created: '{backup_filename}'")
                 except Exception as e:
                     logging.error(f"Failed to create backup: {e}")
+                    print(f"Warning: Failed to create backup: {e}")
 
                 return True
             
