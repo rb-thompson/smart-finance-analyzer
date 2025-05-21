@@ -2,6 +2,7 @@ import csv
 from datetime import datetime
 import logging
 import os
+from tabulate import tabulate
 
 class FinanceUtils:
     """Class to manage financial transactions with CRUD operations and analysis."""
@@ -140,8 +141,145 @@ class FinanceUtils:
             print(f"Error reading CSV file '{filename}'.")
             return False
         
+        except UnicodeDecodeError as e:
+            logging.error(f"Encoding error in CSV file '{filename}': {e}")
+            print(f"Error: Invalid encoding in CSV file")
+            return False
+        
         except IOError as e:
             logging.error(f"IO error reading {filename}: {e}")
             print(f"Error: IO error reading file: {e}")
             return False
         
+    def add_transaction(self):
+        print("\nAdd New Transaction (enter 'cancel' to abort)")
+
+        # Date input
+        while True:
+            date_input = input("Enter date (YYYY-MM-DD): ").strip()
+            if date_input.lower() == 'cancel':
+                print("Transaction addition cancelled.")
+                return False
+            try:
+                date_obj = datetime.strptime(date_input, '%Y-%m-%d').date()
+                break
+            except ValueError:
+                logging.error(f"Invalid date format: {date_input}")
+                print("Invalid date format. Please enter in YYYY-MM-DD format.")
+
+        # Customer ID input with suggestions
+        customer_ids = sorted(set(t['customer_id'] for t in self.transactions))
+        if customer_ids:
+            print(f"Valid customer IDs: {', '.join(map(str, customer_ids[:10]))}{'...' if len(customer_ids) > 10 else ''}")
+        while True:
+            customer_input = input("Enter customer ID (integer): ").strip()
+            if customer_input.lower() == 'cancel':
+                print("Transaction cancelled.")
+                return False
+            try:
+                customer_id = int(customer_input)
+                break
+            except ValueError:
+                logging.error(f"Invalid customer ID input: {customer_input}")
+                print("Error: Customer ID must be an integer. Please try again.")
+
+        # Amount input
+        while True:
+            amount_input = input("Enter amount (positive number): ").strip()
+            if amount_input.lower() == 'cancel':
+                print("Transaction cancelled.")
+                return False
+            try:
+                amount = float(amount_input)
+                if amount <= 0:
+                    logging.error(f"Non-positive amount input: {amount_input}")
+                    print("Error: Amount must be positive. Please try again.")
+                    continue
+                break
+            except ValueError:
+                logging.error(f"Invalid amount input: {amount_input}")
+                print("Error: Amount must be a number. Please try again.")
+
+        # Type input
+        valid_types = {'credit', 'debit', 'transfer'}
+        while True:
+            type_input = input("Enter type (credit/debit/transfer): ").strip().lower()
+            if type_input.lower() == 'cancel':
+                print("Transaction cancelled.")
+                return False
+            if type_input not in valid_types:
+                logging.error(f"Invalid transaction type input: {type_input}")
+                print(f"Error: Type must be one of {', '.join(valid_types)}. Please try again.")
+                continue
+            break
+
+        # Adjust amount for debit
+        if type_input == 'debit':
+            amount = -amount
+
+        # Description input
+        while True:
+            description = input("Enter description: (non-empty): ").strip()
+            if description.lower() == 'cancel':
+                print("Transaction cancelled.")
+                return False
+            if not description:
+                logging.error("Empty description input")
+                print("Error: Description cannot be empty. Please try again.")
+                continue
+            break
+
+        # Generate new transaction ID
+        transaction_id = max((t['transaction_id'] for t in self.transactions), default=0) + 1
+
+        # Create and append transaction
+        transaction = {
+            'transaction_id': transaction_id,
+            'date': date_obj,
+            'customer_id': customer_id,
+            'amount': amount,
+            'type': type_input,
+            'description': description
+        }
+        self.transactions.append(transaction)
+        print(f"Transaction {transaction} added successfully!")
+        return True
+
+    def view_transactions(self, filter_type=None):
+        if not self.transactions:
+            print("No transactions to display.")
+            return False
+        
+        # Apply filter
+        valid_types = {'credit', 'debit', 'transfer'}
+        if filter_type and filter_type.lower() not in valid_types:
+            logging.error(f"Invalid filter type: {filter_type}")
+            print(f"Error: Filter type must be one of {', '.join(valid_types)} or empty.")
+            return False
+        
+        transactions = (
+            [t for t in self.transactions if t['type'] == filter_type.lower()]
+            if filter_type else self.transactions
+        )
+
+        if not transactions:
+            print(f"No {filter_type} transactions found." if filter_type else "No transactions found.")
+            return False
+        
+        # Prepare table data
+        table = [
+            [
+                t['transaction_id'],
+                t['date'].strftime('%b %d, %Y'),
+                t['customer_id'],
+                f"${t['amount']:,.2f}",
+                t['type'].capitalize(),
+                t['description'][:30] + ('...' if len(t['description']) > 30 else '')
+            ]
+            for t in transactions
+        ]
+
+        headers = ['ID', 'Date', 'Customer', 'Amount', 'Type', 'Description']
+        print(f"\n{'Filtered' if filter_type else 'All'} Transactions:")
+        print(tabulate(table, headers=headers, tablefmt='grid', stralign='left'))
+        return True

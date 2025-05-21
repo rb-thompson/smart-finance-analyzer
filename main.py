@@ -22,6 +22,17 @@ def main():
                 print("Transactions loaded successfully.")
             else:
                 print("Failed to load transactions.")
+        elif choice == '2':
+            if finance.add_transaction():
+                print("Transaction added to memory. Save to persist changes.")
+            else:
+                print("Transaction not added.")
+        elif choice == '3':
+            filter_type = input("Enter type to filter (credit/debit/transfer, or press Enter for all): ").strip()
+            if not filter_type:
+                filter_type = None
+            if not finance.view_transactions(filter_type):
+                print("No transactions displayed.")
         elif choice == '9':
             print("Exiting the program.")
             break
