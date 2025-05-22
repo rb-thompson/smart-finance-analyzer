@@ -36,6 +36,16 @@ def main():
                 filter_year = None
             if not finance.view_transactions(filter_type, filter_year):
                 print("No transactions displayed.")
+        elif choice == '4':
+            if finance.update_transaction():
+                print("Transaction updated in memory. Save to persist changes.")
+            else:
+                print("Transaction not updated.")
+        elif choice == '5':
+            if finance.delete_transaction():
+                print("Transaction deleted from memory. Save to persist changes.")
+            else:
+                print("Transaction not deleted.")
         elif choice == '9':
             print("Exiting the program.")
             break

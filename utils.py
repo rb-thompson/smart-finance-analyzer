@@ -10,18 +10,33 @@ class FinanceUtils:
     def __init__(self):
         """Initialize transactions list and configure logging."""
         self.transactions = []
-        # Configure logging to write to errors.txt
-        # Protect against permissions issues
+        # Configure logging with a custom FileHandler
+        self.logger = logging.getLogger('FinanceUtils')
+        self.logger.setLevel(logging.ERROR)
+        formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
         try:
-            logging.basicConfig(
-                level=logging.ERROR,
-                format='%(asctime)s - %(levelname)s - %(message)s',
-                filename='errors.txt',
-                filemode='a'
-            )
+            self.file_handler = logging.FileHandler('errors.txt', mode='a', encoding='utf-8')
+            self.file_handler.setFormatter(formatter)
+            self.logger.addHandler(self.file_handler)
         except IOError as e:
             print(f"Error: Cannot configure logging to errors.txt: {e}")
-            logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
+            console_handler = logging.StreamHandler()
+            console_handler.setFormatter(formatter)
+            self.logger.addHandler(console_handler)
+            self.file_handler = None
+
+    def __del__(self):
+        """Ensure file handler is closed when instance is destroyed."""
+        if hasattr(self, 'file_handler') and self.file_handler:
+            self.file_handler.close()
+            self.logger.removeHandler(self.file_handler)
+
+    def _get_transaction_by_id(self, transaction_id):
+        """Helper method to find a transaction by its ID."""
+        for t in self.transactions:
+            if t['transaction_id'] == transaction_id:
+                return t
+        return None
 
     def load_transactions(self, filename='financial_transactions.csv'):
         """
@@ -44,7 +59,7 @@ class FinanceUtils:
                 # Check required columns
                 if not required_columns.issubset(reader.fieldnames):
                     missing = required_columns - set(reader.fieldnames)
-                    logging.error(f"Missing columns in CSV: {missing}")
+                    self.logger.error(f"Missing columns in CSV: {missing}")
                     print(f"Missing columns in CSV: {missing}")
                     return False
                 
@@ -54,11 +69,11 @@ class FinanceUtils:
                         try:
                             transaction_id = int(row['transaction_id'])
                             if transaction_id in seen_ids:
-                                logging.error(f"Row {row_num}: Duplicate transaction_id '{transaction_id}'")
+                                self.logger.error(f"Row {row_num}: Duplicate transaction_id '{transaction_id}'")
                                 continue
                             seen_ids.add(transaction_id)
                         except ValueError:
-                            logging.error(f"Row {row_num}: Invalid transaction_id '{row['transaction_id']}'")
+                            self.logger.error(f"Row {row_num}: Invalid transaction_id '{row['transaction_id']}'")
                             continue
 
                         # Validate date
@@ -66,33 +81,33 @@ class FinanceUtils:
                         try:
                             date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
                         except ValueError:
-                            logging.error(f"Row {row_num}: Invalid date format '{date_str}'")
+                            self.logger.error(f"Invalid date format: '{date_str}'")
                             continue
 
                         # Validate customer_id
                         try:
                             customer_id = int(row['customer_id'])
                             if customer_id <= 0:
-                                logging.error(f"Row {row_num}: Non-positive customer_id '{customer_id}'")
+                                self.logger.error(f"Non-positive customer_id: '{customer_id}'")
                                 continue
                         except ValueError:
-                            logging.error(f"Row {row_num}: Invalid customer_id '{row['customer_id']}'")
+                            self.logger.error(f"Invalid customer_id: '{row['customer_id']}'")
                             continue
 
                         # Validate amount
                         try:
                             amount = float(row['amount'])
                             if amount < 0:
-                                logging.error(f"Row {row_num}: Negative amount '{amount}'")
+                                self.logger.error(f"Row {row_num}: Negative amount '{amount}'")
                                 continue
                         except ValueError:
-                            logging.error(f"Row {row_num}: Invalid amount '{row['amount']}'")
+                            self.logger.error(f"Row {row_num}: Invalid amount '{row['amount']}'")
                             continue
 
                         # Validate type
                         transaction_type = row['type'].strip().lower()
                         if transaction_type not in {'credit', 'debit', 'transfer'}:
-                            logging.error(f"Row {row_num}: Invalid transaction type '{transaction_type}'")
+                            self.logger.error(f"Row {row_num}: Invalid transaction type '{transaction_type}'")
                             continue
 
                         # Adjust amount for debit
@@ -102,7 +117,7 @@ class FinanceUtils:
                         # Validate description
                         description = row.get('description')
                         if description is None or not str(description).strip():
-                            logging.error(f"Row {row_num}: Empty description")
+                            self.logger.error(f"Row {row_num}: Empty description")
                             continue
                         description = str(description).strip()
 
@@ -118,11 +133,11 @@ class FinanceUtils:
                         self.transactions.append(transaction)
 
                     except KeyError as e:
-                        logging.error(f"Row {row_num}: Missing column {e}")
+                        self.logger.error(f"Row {row_num}: Missing column {e}")
                         continue
 
                 if not self.transactions:
-                    logging.error(f"No valid transactions in '{filename}'")
+                    self.logger.error(f"No valid transactions in '{filename}'")
                     print(f"Error: No valid transactions in CSV")
                     return False
                 
@@ -139,28 +154,28 @@ class FinanceUtils:
                         dst_file.write(src_file.read())
                     print(f"Backup created: '{backup_filename}'")
                 except Exception as e:
-                    logging.error(f"Failed to create backup: {e}")
+                    self.logger.error(f"Failed to create backup: {e}")
                     print(f"Warning: Failed to create backup: {e}")
 
                 return True
             
         except FileNotFoundError:
-            logging.error(f"File '{filename}' not found.")
+            self.logger.error(f"File '{filename}' not found.")
             print(f"File '{filename}' not found.")
             return False
         
         except csv.Error:
-            logging.error(f"Malformed CSV file '{filename}'.")
+            self.logger.error(f"Malformed CSV file '{filename}'.")
             print(f"Error reading CSV file '{filename}'.")
             return False
         
         except UnicodeDecodeError as e:
-            logging.error(f"Encoding error in CSV file '{filename}': {e}")
+            self.logger.error(f"Encoding error in CSV file '{filename}': {e}")
             print(f"Error: Invalid encoding in CSV file")
             return False
         
         except IOError as e:
-            logging.error(f"IO error reading {filename}: {e}")
+            self.logger.error(f"IO error reading {filename}: {e}")
             print(f"Error: IO error reading file: {e}")
             return False
         
@@ -177,7 +192,7 @@ class FinanceUtils:
                 date_obj = datetime.strptime(date_input, '%Y-%m-%d').date()
                 break
             except ValueError:
-                logging.error(f"Invalid date format: {date_input}")
+                self.logger.error(f"Invalid date format: {date_input}")
                 print("Invalid date format. Please enter in YYYY-MM-DD format.")
 
         # Customer ID input with suggestions
@@ -192,12 +207,12 @@ class FinanceUtils:
             try:
                 customer_id = int(customer_input)
                 if customer_id <= 0:
-                    logging.error(f"Non-positive customer ID input: {customer_input}")
+                    self.logger.error(f"Non-positive customer ID input: {customer_input}")
                     print("Error: Customer ID must be a positive integer. Please try again.")
                     continue
                 break
             except ValueError:
-                logging.error(f"Invalid customer ID input: {customer_input}")
+                self.logger.error(f"Invalid customer ID input: {customer_input}")
                 print("Error: Customer ID must be an integer. Please try again.")
 
         # Amount input
@@ -209,23 +224,23 @@ class FinanceUtils:
             try:
                 amount = float(amount_input)
                 if amount <= 0:
-                    logging.error(f"Non-positive amount input: {amount_input}")
+                    self.logger.error(f"Non-positive amount input: {amount_input}")
                     print("Error: Amount must be positive. Please try again.")
                     continue
                 break
             except ValueError:
-                logging.error(f"Invalid amount input: {amount_input}")
+                self.logger.error(f"Invalid amount input: {amount_input}")
                 print("Error: Amount must be a number. Please try again.")
 
         # Type input
-        valid_types = {'credit', 'debit', 'transfer'}
+        valid_types = ['credit', 'debit', 'transfer']  # Changed to sorted list
         while True:
             type_input = input("Enter type (credit/debit/transfer): ").strip().lower()
             if type_input.lower() == 'cancel':
                 print("Transaction cancelled.")
                 return False
             if type_input not in valid_types:
-                logging.error(f"Invalid transaction type input: {type_input}")
+                self.logger.error(f"Invalid transaction type input: {type_input}")
                 print(f"Error: Type must be one of {', '.join(valid_types)}. Please try again.")
                 continue
             break
@@ -241,7 +256,7 @@ class FinanceUtils:
                 print("Transaction cancelled.")
                 return False
             if not description:
-                logging.error("Empty description input")
+                self.logger.error("Empty description input")
                 print("Error: Description cannot be empty. Please try again.")
                 continue
             break
@@ -268,9 +283,9 @@ class FinanceUtils:
             return False
         
         # Validate filter_type
-        valid_types = {'credit', 'debit', 'transfer'}
+        valid_types = ['credit', 'debit', 'transfer']  # Changed to sorted list
         if filter_type and filter_type.lower() not in valid_types:
-            logging.error(f"Invalid filter type: {filter_type}")
+            self.logger.error(f"Invalid filter type: {filter_type}")
             print(f"Error: Filter type must be one of {', '.join(valid_types)} or empty.")
             return False
         
@@ -280,11 +295,11 @@ class FinanceUtils:
             try:
                 filter_year = int(filter_year)
                 if not (1900 <= filter_year <= current_year):
-                    logging.error(f"Invalid filter year: {filter_year}")
+                    self.logger.error(f"Invalid filter year: {filter_year}")
                     print(f"Error: Year must be between 1900 and {current_year}.")
                     return False
             except ValueError:
-                logging.error(f"Invalid filter year input: {filter_year}")
+                self.logger.error(f"Invalid filter year input: {filter_year}")
                 print("Error: Year must be an integer.")
                 return False
             
@@ -352,4 +367,194 @@ class FinanceUtils:
                 print("Invalid command. Use 'start', 'next', 'prev', 'end', or 'exit'.")
 
         print(f"Displayed {len(transactions)} transactions across {total_pages} page(s).")
+        return True
+    
+    def update_transaction(self):
+        """
+        Prompt user to update an existing transaction by ID.
+        
+        Returns:
+            bool: True if transaction is updated, False if cancelled or invalid.
+        """
+        if not self.transactions:
+            print("No transactions to update.")
+            return False
+
+        print("\nUpdate Transaction (enter 'cancel' to abort)")
+        while True:
+            id_input = input("Enter transaction ID (e.g., 100001): ").strip()
+            if id_input.lower() == 'cancel':
+                print("Update cancelled.")
+                return False
+            try:
+                transaction_id = int(id_input)
+                transaction = self._get_transaction_by_id(transaction_id)
+                if not transaction:
+                    self.logger.error(f"Transaction ID not found: '{transaction_id}'")
+                    print(f"Error: Transaction ID {transaction_id} not found. Try again.")
+                    continue
+                break
+            except ValueError:
+                self.logger.error(f"Invalid transaction ID input: '{id_input}'")
+                print("Error: Transaction ID must be an integer. Try again.")
+
+        # Display current transaction
+        print(f"\nUpdating Transaction {transaction_id}:")
+        print(f"  Current: {transaction['date'].strftime('%Y-%m-%d')}, Customer {transaction['customer_id']}, "
+              f"${abs(transaction['amount']):,.2f} {transaction['type'].capitalize()}, {transaction['description']}")
+        print("Enter new values (press Enter to keep current, 'cancel' to abort)")
+
+        # Date input
+        while True:
+            date_input = input(f"New date [{transaction['date'].strftime('%Y-%m-%d')}]: ").strip()
+            if date_input.lower() == 'cancel':
+                print("Update cancelled.")
+                return False
+            if not date_input:
+                date_obj = transaction['date']
+                break
+            try:
+                date_obj = datetime.strptime(date_input, '%Y-%m-%d').date()
+                break
+            except ValueError:
+                self.logger.error(f"Invalid date input: '{date_input}'")
+                print("Error: Date must be in YYYY-MM-DD format (e.g., 2020-10-26). Try again.")
+
+        # Customer ID input
+        customer_ids = sorted(set(t['customer_id'] for t in self.transactions if t['customer_id'] > 0))
+        if customer_ids:
+            print(f"Valid customer IDs: {', '.join(map(str, customer_ids[:10]))}{'...' if len(customer_ids) > 10 else ''}")
+        while True:
+            customer_input = input(f"New customer ID [{transaction['customer_id']}]: ").strip()
+            if customer_input.lower() == 'cancel':
+                print("Update cancelled.")
+                return False
+            if not customer_input:
+                customer_id = transaction['customer_id']
+                break
+            try:
+                customer_id = int(customer_input)
+                if customer_id <= 0:
+                    self.logger.error(f"Non-positive customer ID input: '{customer_id}'")
+                    print("Error: Customer ID must be a positive integer. Try again.")
+                    continue
+                break
+            except ValueError:
+                self.logger.error(f"Invalid customer ID input: '{customer_input}'")
+                print("Error: Customer ID must be a positive integer. Try again.")
+
+        # Amount input
+        while True:
+            amount_input = input(f"New amount [{abs(transaction['amount']):,.2f}]: ").strip()
+            if amount_input.lower() == 'cancel':
+                print("Update cancelled.")
+                return False
+            if not amount_input:
+                amount = abs(transaction['amount'])
+                break
+            try:
+                amount = float(amount_input)
+                if amount <= 0:
+                    self.logger.error(f"Non-positive amount input: '{amount}'")
+                    print("Error: Amount must be positive. Try again.")
+                    continue
+                break
+            except ValueError:
+                self.logger.error(f"Invalid amount input: '{amount_input}'")
+                print("Error: Amount must be a number. Try again.")
+
+        # Type input
+        valid_types = {'credit', 'debit', 'transfer'}
+        while True:
+            type_input = input(f"New type [{transaction['type']}]: ").strip().lower()
+            if type_input.lower() == 'cancel':
+                print("Update cancelled.")
+                return False
+            if not type_input:
+                type_input = transaction['type']
+                break
+            if type_input not in valid_types:
+                self.logger.error(f"Invalid transaction type input: '{type_input}'")
+                print(f"Error: Type must be one of {', '.join(valid_types)}. Try again.")
+                continue
+            break
+
+        # Adjust amount for debit
+        if type_input == 'debit':
+            amount = -amount
+
+        # Description input
+        while True:
+            description = input(f"New description [{transaction['description']}]: ").strip()
+            if description.lower() == 'cancel':
+                print("Update cancelled.")
+                return False
+            if not description:
+                description = transaction['description']
+                break
+            if not description.strip():
+                self.logger.error("Empty description input")
+                print("Error: Description cannot be empty. Try again.")
+                continue
+            description = description.strip()
+            break
+
+        # Update transaction
+        transaction.update({
+            'date': date_obj,
+            'customer_id': customer_id,
+            'amount': amount,
+            'type': type_input,
+            'description': description
+        })
+        print(f"Transaction {transaction_id} updated successfully!")
+        return True
+    
+    def delete_transaction(self):
+        """
+        Prompt user to delete a transaction by ID.
+        
+        Returns:
+            bool: True if transaction is deleted, False if cancelled or invalid.
+        """
+        if not self.transactions:
+            print("No transactions to delete.")
+            return False
+
+        print("\nDelete Transaction (enter 'cancel' to abort)")
+        while True:
+            id_input = input("Enter transaction ID (e.g., 123): ").strip()
+            if id_input.lower() == 'cancel':
+                print("Deletion cancelled.")
+                return False
+            try:
+                transaction_id = int(id_input)
+                transaction = self._get_transaction_by_id(transaction_id)
+                if not transaction:
+                    self.logger.error(f"Transaction ID not found: '{transaction_id}'")
+                    print(f"Error: Transaction ID {transaction_id} not found. Try again.")
+                    continue
+                break
+            except ValueError:
+                self.logger.error(f"Invalid transaction ID input: '{id_input}'")
+                print("Error: Transaction ID must be an integer. Try again.")
+
+        # Display transaction
+        print(f"\nTransaction to delete (ID {transaction_id}):")
+        print(f"  {transaction['date'].strftime('%Y-%m-%d')}, Customer {transaction['customer_id']}, "
+              f"${abs(transaction['amount']):,.2f} {transaction['type'].capitalize()}, {transaction['description']}")
+
+        # Confirm deletion
+        while True:
+            confirm = input("Are you sure? (y/n): ").strip().lower()
+            if confirm == 'n' or confirm == 'cancel':
+                print("Deletion cancelled.")
+                return False
+            if confirm == 'y':
+                break
+            print("Please enter 'y', 'n', or 'cancel'.")
+
+        # Delete transaction
+        self.transactions.remove(transaction)
+        print(f"Transaction {transaction_id} deleted successfully!")
         return True
