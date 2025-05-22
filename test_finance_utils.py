@@ -12,6 +12,10 @@ import logging
 class TestFinanceUtils(unittest.TestCase):
     def setUp(self):
         """Set up a FinanceUtils instance and a small test CSV."""
+        # Print test description
+        test_doc = self._testMethodDoc.strip() if self._testMethodDoc else "No description"
+        print(f"\nRunning {test_doc}")
+
         # Clear test_errors.txt
         if os.path.exists('test_errors.txt'):
             try:
