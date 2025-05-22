@@ -12,3 +12,9 @@
 2025-05-21 16:25:02,353 - ERROR - Empty description input
 2025-05-21 17:28:11,962 - ERROR - Invalid filter year: 1891
 2025-05-21 17:29:01,086 - ERROR - Invalid filter year input: yesterday
+2025-05-22 09:38:49,530 - ERROR - Row 3: Duplicate transaction_id '1'
+2025-05-22 09:38:49,530 - ERROR - Row 5: Empty description
+2025-05-22 09:38:49,530 - ERROR - Row 7: Invalid transaction type 'loan'
+2025-05-22 09:38:49,530 - ERROR - Row 8: Invalid customer_id 'abc'
+2025-05-22 09:38:49,530 - ERROR - Row 9: Invalid date format '05-15-2019'
+2025-05-22 09:40:15,621 - ERROR - No valid transactions in 'empty_transactions.csv'
