@@ -20,3 +20,5 @@
 2025-05-22 09:40:15,621 - ERROR - No valid transactions in 'empty_transactions.csv'
 2025-05-23 10:27:58,504 - ERROR - Encoding error in CSV file 'developer_transactions.csv': 'utf-8' codec can't decode byte 0x92 in position 119: invalid start byte
 2025-05-23 10:32:38,515 - ERROR - Encoding error in CSV file 'developer_transactions.csv': 'utf-8' codec can't decode byte 0x85 in position 163: invalid start byte
+2025-05-23 13:05:51,927 - ERROR - Invalid transaction ID input: ''
+2025-05-23 13:06:12,558 - ERROR - Transaction ID not found: '1000'

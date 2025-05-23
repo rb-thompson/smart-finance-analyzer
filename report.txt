@@ -1,0 +1,15 @@
+Financial Report
+=================
+Date Range: 2020-01-06 to 2024-12-26
+Total Transactions: 500
+
+Financial Summary:
+  Total Credits: $88,495.40
+  Total Debits: $23,662.03
+  Total Transfers: $38,465.44
+  Net Balance: $64,833.37
+
+Breakdown by Type:
+  Credit: 187 transactions (37.40%)
+  Debit: 153 transactions (30.60%)
+  Transfer: 160 transactions (32.00%)

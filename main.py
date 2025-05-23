@@ -51,6 +51,16 @@ def main():
                 print("Analysis complete. Check the report for details.")
             else:
                 print("Analysis failed.")
+        elif choice == '7':
+            if finance.save_transactions():
+                print("Transactions saved successfully.")
+            else:
+                print("Failed to save transactions.")
+        elif choice == '8':
+            if finance.generate_report():
+                print("Report generated successfully.")
+            else:
+                print("Failed to generate report.")
         elif choice == '9':
             print("Exiting the program.")
             break

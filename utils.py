@@ -617,3 +617,110 @@ class FinanceUtils:
 
         return True
     
+    def save_transactions(self, filename='developer_transactions.csv'):
+        """
+        Save transactions to a CSV file.
+        
+        Args:
+            filename (str): Path to the CSV file.
+            
+        Returns:
+            bool: True if saving succeeds, False otherwise.
+        """
+        if not self.transactions:
+            print("No transactions to save.")
+            return False
+        
+        # Create directory if it doesn't exist
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+
+        try:
+            with open(filename, mode='w', encoding='utf-8', newline='') as file:
+                fieldnames = ['transaction_id', 'date', 'customer_id', 'amount', 'type', 'description']
+                writer = csv.DictWriter(file, fieldnames=fieldnames)
+                writer.writeheader()
+                for t in self.transactions:
+                    t['date'] = t['date'].strftime('%Y-%m-%d')
+                    writer.writerow(t)
+            print(f"Transactions saved to '{filename}'.")
+            return True
+        except IOError as e:
+            self.logger.error(f"Failed to save transactions: {e}")
+            print(f"Error: Failed to save transactions to '{filename}': {e}")
+            return False
+        
+    def generate_report(self, filename='report.txt'):
+        """
+        Generate a report (financial summary) and save it to a text file.
+        This method summarizes the transactions and saves the analysis to a file.
+
+        Summary includes:
+        - Date range of transactions
+        - Total number of transactions
+        - Total credits
+        - Total debits
+        - Total transfers
+        - Net balance
+        - Breakdown by type (count and percentage)
+
+        Args:
+            filename (str): Path to the report file.
+            
+        Returns:
+            bool: True if report generation succeeds, False otherwise.
+        """
+        if not self.transactions:
+            print("No transactions to report.")
+            return False
+        
+        try:
+            with open(filename, 'w', encoding='utf-8') as file:
+                file.write("Financial Report\n")
+                file.write("=================\n")
+                
+                # Date range of transactions
+                dates = [t['date'] for t in self.transactions]
+                min_date = min(dates).strftime('%Y-%m-%d')
+                max_date = max(dates).strftime('%Y-%m-%d')
+                file.write(f"Date Range: {min_date} to {max_date}\n")
+                file.write(f"Total Transactions: {len(self.transactions)}\n")
+                file.write("\n")
+
+                # Calculate totals
+                total_credit = sum(t['amount'] for t in self.transactions if t['type'] == 'credit')
+                total_debit = sum(abs(t['amount']) for t in self.transactions if t['type'] == 'debit')  # Use abs for display
+                total_transfer = sum(abs(t['amount']) for t in self.transactions if t['type'] == 'transfer')  # Use abs
+                net_balance = total_credit - total_debit  # Excludes transfers for balance
+                
+                # Write totals to report
+                file.write("Financial Summary:\n")
+                file.write(f"  Total Credits: ${total_credit:,.2f}\n")
+                file.write(f"  Total Debits: ${total_debit:,.2f}\n")
+                file.write(f"  Total Transfers: ${total_transfer:,.2f}\n")
+                file.write(f"  Net Balance: ${net_balance:,.2f}\n")
+                file.write("\n")
+                
+                # Breakdown by type (count and percentage)
+                total_transactions = len(self.transactions)
+                credit_count = sum(1 for t in self.transactions if t['type'] == 'credit')
+                debit_count = sum(1 for t in self.transactions if t['type'] == 'debit')
+                transfer_count = sum(1 for t in self.transactions if t['type'] == 'transfer')
+                
+                file.write("Breakdown by Type:\n")
+                if total_transactions > 0:
+                    credit_percentage = (credit_count / total_transactions) * 100
+                    debit_percentage = (debit_count / total_transactions) * 100
+                    transfer_percentage = (transfer_count / total_transactions) * 100
+                    file.write(f"  Credit: {credit_count} transactions ({credit_percentage:.2f}%)\n")
+                    file.write(f"  Debit: {debit_count} transactions ({debit_percentage:.2f}%)\n")
+                    file.write(f"  Transfer: {transfer_count} transactions ({transfer_percentage:.2f}%)\n")
+                else:
+                    file.write("  No transactions to analyze.\n")
+                
+                print(f"Report generated and saved to '{filename}'.")
+                return True
+        except IOError as e:
+            self.logger.error(f"Failed to generate report: {e}")
+            print(f"Error: Failed to generate report '{filename}': {e}")
+            return False
+
