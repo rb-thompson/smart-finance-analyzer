@@ -558,3 +558,63 @@ class FinanceUtils:
         self.transactions.remove(transaction)
         print(f"Transaction {transaction_id} deleted successfully!")
         return True
+    
+    def analyze_transactions(self):
+        """
+        Analyze transactions and print summary stats. 
+        
+        Save the analysis to analysis.txt
+        """
+        if not self.transactions:
+            print("No transactions to analyze.")
+            return False
+        
+        # Initialize analysis data
+        type_sums = {"debit": 0.0, "credit": 0.0}
+        transfer_total = 0.0
+
+        # Process transactions
+        for transaction in self.transactions:
+            if transaction['type'] == 'debit':
+                type_sums['debit'] += abs(transaction['amount'])
+            elif transaction['type'] == 'credit':
+                type_sums['credit'] += abs(transaction['amount'])
+            elif transaction['type'] == 'transfer':
+                transfer_total += abs(transaction['amount'])
+
+        # Calculate totals
+        total_transactions = len(self.transactions)
+        total_debit = type_sums['debit']
+        total_credit = type_sums['credit']
+        total_transfer = transfer_total
+        net_balance = total_credit + total_debit
+
+        # Print summary
+        print("\nFinancial Summary:")
+        print(f"Total Credits: ${total_credit:,.2f}")
+        print(f"Total Debits: ${total_debit:,.2f}")
+        print(f"Total Transfers: ${total_transfer:,.2f}")
+        print(f"Net Balance: ${net_balance:,.2f}")
+        print(f"By type: ")
+        for t in type_sums:
+            print(f"  {t.capitalize()}: ${type_sums[t]:,.2f}")
+
+        # Save analysis to file
+        try:
+            with open('analysis.txt', 'w', encoding='utf-8') as file:
+                file.write("Financial Summary:\n")
+                file.write(f"Total Credits: ${total_credit:,.2f}\n")
+                file.write(f"Total Debits: ${total_debit:,.2f}\n")
+                file.write(f"Total Transfers: ${total_transfer:,.2f}\n")
+                file.write(f"Net Balance: ${net_balance:,.2f}\n")
+                file.write("By type:\n")
+                for t in type_sums:
+                    file.write(f"  {t.capitalize()}: ${type_sums[t]:,.2f}\n")
+            print("Analysis saved to 'analysis.txt'.")
+        except IOError as e:
+            self.logger.error(f"Failed to save analysis: {e}")
+            print(f"Error: Failed to save analysis to 'analysis.txt': {e}")
+
+        return True
+    
+    

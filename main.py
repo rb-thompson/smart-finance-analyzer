@@ -46,6 +46,11 @@ def main():
                 print("Transaction deleted from memory. Save to persist changes.")
             else:
                 print("Transaction not deleted.")
+        elif choice == '6':
+            if finance.analyze_transactions():
+                print("Analysis complete. Check the report for details.")
+            else:
+                print("Analysis failed.")
         elif choice == '9':
             print("Exiting the program.")
             break
