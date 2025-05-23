@@ -38,7 +38,7 @@ class FinanceUtils:
                 return t
         return None
 
-    def load_transactions(self, filename='developer_transactions.csv'):
+    def load_transactions(self, filename='financial_transactions.csv'):
         """
         Load transactions from a CSV file into self.transactions.
         
@@ -617,7 +617,7 @@ class FinanceUtils:
 
         return True
     
-    def save_transactions(self, filename='developer_transactions.csv'):
+    def save_transactions(self, filename='financial_transactions.csv'):
         """
         Save transactions to a CSV file.
         
@@ -631,19 +631,26 @@ class FinanceUtils:
             print("No transactions to save.")
             return False
         
-        # Create directory if it doesn't exist
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
-
         try:
             with open(filename, mode='w', encoding='utf-8', newline='') as file:
                 fieldnames = ['transaction_id', 'date', 'customer_id', 'amount', 'type', 'description']
                 writer = csv.DictWriter(file, fieldnames=fieldnames)
                 writer.writeheader()
-                for t in self.transactions:
-                    t['date'] = t['date'].strftime('%Y-%m-%d')
-                    writer.writerow(t)
-            print(f"Transactions saved to '{filename}'.")
+                
+                for transaction in self.transactions:
+                    # Write each transaction
+                    writer.writerow({
+                        'transaction_id': transaction['transaction_id'],
+                        'date': transaction['date'].strftime('%Y-%m-%d'),
+                        'customer_id': transaction['customer_id'],
+                        'amount': abs(transaction['amount']),
+                        'type': transaction['type'],
+                        'description': transaction['description']
+                    })
+                
+                print(f"Transactions saved to '{filename}'.")
             return True
+        
         except IOError as e:
             self.logger.error(f"Failed to save transactions: {e}")
             print(f"Error: Failed to save transactions to '{filename}': {e}")
@@ -674,6 +681,11 @@ class FinanceUtils:
             return False
         
         try:
+            # Add a timestamp to the report filename
+            timestamp = datetime.now().strftime('%Y%m%d')
+            filename = f"report_{timestamp}.txt"
+
+            # Generate report
             with open(filename, 'w', encoding='utf-8') as file:
                 file.write("Financial Report\n")
                 file.write("=================\n")

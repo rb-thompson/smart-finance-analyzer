@@ -1,0 +1,15 @@
+Financial Report
+=================
+Date Range: 2018-03-27 to 2023-03-27
+Total Transactions: 100001
+
+Financial Summary:
+  Total Credits: $166,670,791.51
+  Total Debits: $166,223,463.59
+  Total Transfers: $168,007,221.73
+  Net Balance: $447,327.92
+
+Breakdown by Type:
+  Credit: 33372 transactions (33.37%)
+  Debit: 33298 transactions (33.30%)
+  Transfer: 33331 transactions (33.33%)
