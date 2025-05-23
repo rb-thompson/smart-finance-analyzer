@@ -38,7 +38,7 @@ class FinanceUtils:
                 return t
         return None
 
-    def load_transactions(self, filename='financial_transactions.csv'):
+    def load_transactions(self, filename='developer_transactions.csv'):
         """
         Load transactions from a CSV file into self.transactions.
         
@@ -616,5 +616,4 @@ class FinanceUtils:
             print(f"Error: Failed to save analysis to 'analysis.txt': {e}")
 
         return True
-    
     

@@ -1,0 +1,501 @@
+transaction_id,date,customer_id,amount,type,description
+1,2023-01-21,308,129.6,debit,Gas money for networking at the pizzerias open mic
+2,2024-03-16,600,48.13,credit,Bartered coding help for a sack of potatoes
+3,2019-06-04,200,182.38,debit,Household expenses lightbulbs and hope
+4,2018-03-14,550,365.28,transfer,Split the cost of a community BBQ I brought the vibes
+5,2024-08-19,946,636.59,credit,Grandpa paid for teaching him about AI
+6,2018-10-14,525,168.94,debit,Electricity bill to keep the coding rig humming
+7,2016-04-22,235,238.02,debit,Drove miles to a career fair free coffee no jobs
+8,2020-05-17,878,250.51,debit,Starlink subscription only internet that works out here
+9,2024-03-18,726,304.17,transfer,Sent funds to my investment account crypto dream lives on
+10,2017-05-02,760,277.33,debit,Repairs for the drafty farmhouse leaky roof again
+11,2021-09-24,357,278.72,transfer,Paid buddy back
+12,2020-04-22,531,103.21,debit,Paid for a library card to use their WiFi
+13,2024-05-18,719,322.93,transfer,Moved cash to my savings
+14,2019-05-11,121,237.33,debit,Bought a used server cabinet at a garage sale
+15,2019-09-09,513,341.08,transfer,Bank transfer to my side hustle account
+16,2020-05-01,696,78.41,transfer,Sent cash to friend for gas after a coding jam
+17,2018-08-02,941,206.17,debit,Repairs for the drafty farmhouse leaky roof again
+18,2016-12-12,594,197.15,transfer,Bank transfer to my side hustle account
+19,2022-07-27,298,276.38,debit,Paid for firewood choppings my cardio
+20,2023-11-18,249,452.08,transfer,Bank transfer to my side hustle account
+21,2018-12-22,102,940.84,credit,Found cash in an old pair of jeans millionaire vibes
+22,2016-01-11,637,596.06,credit,Neighbor paid me for setting up their router
+23,2021-01-15,549,171.19,transfer,Moved cash to my savings
+24,2018-11-17,224,221.37,transfer,Split the cost of a community BBQ I brought the vibes
+25,2020-11-29,534,669.29,credit,Sold an app prototype to a sketchy startup
+26,2016-02-15,475,364.66,transfer,Sent funds to my investment account crypto dream lives on
+27,2018-07-15,884,430.28,credit,Refund from returning a broken mouse to the thrift store
+28,2020-01-28,559,80.64,debit,Paid for firewood choppings my cardio
+29,2024-05-14,252,106.18,transfer,Bank transfer to my side hustle account
+30,2023-09-12,853,374.25,transfer,Sent funds to my investment account crypto dream lives on
+31,2023-01-03,314,491.59,transfer,Split the cost of a group diner meal
+32,2024-11-12,940,61.36,transfer,Moved cash to my savings
+33,2016-07-29,538,479.85,transfer,Moved cash to my savings
+34,2023-06-30,890,391.83,transfer,Moved cash to my savings
+35,2021-07-20,782,759.84,credit,Debugged neighbors ancient PC for cash and a pie
+36,2020-11-10,945,278.17,debit,Bought a used server cabinet at a garage sale
+37,2020-04-15,543,54.23,debit,Donated to a crowdfunded Linux distro
+38,2019-01-24,722,90.12,transfer,Bank transfer to my side hustle account
+39,2019-03-24,360,102.52,debit,Coffee from the gas station caffeine is life
+40,2020-01-23,282,291.13,transfer,Split the cost of a group diner meal
+41,2021-04-06,382,256.9,transfer,Sent funds to my investment account crypto dream lives on
+42,2023-03-07,227,265.86,credit,Got paid for a Craigslist keyboard repair gig
+43,2020-05-18,447,106.05,debit,New batteries for =the UPS keeping my PC alive
+44,2022-09-08,167,524.79,credit,Grandpa paid for teaching him about AI
+45,2019-01-20,594,261.91,debit,Repairs for the drafty farmhouse leaky roof again
+46,2024-10-25,652,931.95,credit,Refund from returning a broken mouse to the thrift store
+47,2016-02-18,732,474.8,transfer,Split the cost of a group diner meal
+48,2017-11-05,585,375.99,transfer,Sent funds to my investment account crypto dream lives on
+49,2022-09-16,430,388.99,transfer,Moved cash to my savings
+50,2017-06-11,228,261.6,debit,Garden supplies to grow my own food
+51,2016-07-24,710,248.47,credit,Tax refund thanks IRS
+52,2016-05-12,493,332.47,transfer,Paid buddy back
+53,2022-05-04,736,698.43,credit,Neighbor paid me for setting up their router
+54,2020-08-22,868,706.18,credit,Sold old RAM sticks to a fellow broke coder
+55,2016-04-06,917,458.29,credit,Sold a bucket of chicken eggs at the farmers market
+56,2022-11-29,296,885.81,credit,Debugged neighbors ancient PC for cash and a pie
+57,2024-09-30,384,157.39,transfer,Split the cost of a group diner meal
+58,2018-06-11,643,476.68,transfer,Sent funds to my investment account crypto dream lives on
+59,2018-12-28,927,682.16,credit,Found cash in an old pair of jeans millionaire vibes
+60,2017-01-12,862,784.62,credit,Grandpa paid for teaching him about AI
+61,2019-05-17,374,223.22,transfer,Split the cost of a group diner meal
+62,2024-10-05,380,252.26,transfer,Sent cash to friend for gas after a coding jam
+63,2022-04-15,930,275.7,credit,Refund from returning a broken mouse to the thrift store
+64,2016-12-09,344,148.37,debit,Repairs for the drafty farmhouse leaky roof again
+65,2023-10-17,664,263.6,debit,Starlink subscription only internet that works out here
+66,2022-02-07,550,482.99,transfer,Reimbursed fiance
+67,2018-06-30,647,475.21,transfer,Sent funds to my investment account crypto dream lives on
+68,2018-12-08,141,237.29,debit,Paid for a library card to use their WiFi
+69,2020-09-14,778,183.95,debit,Grocery run for ramen and clearance beef
+70,2020-04-18,350,58.71,debit,Repairs for the drafty farmhouse leaky roof again
+71,2019-06-16,512,784.69,credit,Crowdfunding tip for my open source bug fix
+72,2021-04-04,345,593.84,credit,Found cash in an old pair of jeans millionaire vibes
+73,2016-06-10,817,13.67,debit,Paid for cloud storage my codes only home
+74,2021-08-09,445,85.82,debit,Repairs for the drafty farmhouse leaky roof again
+75,2018-07-07,904,28.74,transfer,Sent cash to friend for gas after a coding jam
+76,2017-09-06,731,256.42,debit,Household expenses lightbulbs and hope
+77,2017-02-21,147,373.93,credit,Found cash in an old pair of jeans millionaire vibes
+78,2020-02-20,970,13.28,transfer,Sent funds to my investment account crypto dream lives on
+79,2022-11-02,986,235.34,transfer,Paid buddy back
+80,2020-07-11,905,63.02,debit,Drove miles to a career fair free coffee no jobs
+81,2021-12-04,785,85.37,debit,Electricity bill to keep the coding rig humming
+82,2020-06-04,552,191.55,credit,Found cash in an old pair of jeans millionaire vibes
+83,2022-09-29,370,106.29,debit,Vet bill for the farm cats who help me code
+84,2022-01-08,113,85.88,debit,Grocery run for ramen and clearance beef
+85,2021-02-23,752,63.34,transfer,Reimbursed fiance
+86,2023-05-09,420,180.6,transfer,Split the cost of a group diner meal
+87,2021-06-18,126,258.94,debit,Repairs for the drafty farmhouse leaky roof again
+88,2020-02-07,116,233.57,credit,Crowdfunding tip for my open source bug fix
+89,2019-05-12,967,343.65,transfer,Bank transfer to my side hustle account
+90,2016-03-18,537,808.27,credit,Debugged neighbors ancient PC for cash and a pie
+91,2021-05-20,314,155.03,debit,Coffee from the gas station caffeine is life
+92,2020-06-19,237,399.77,transfer,Reimbursed fiance
+93,2020-10-14,800,245.83,debit,Donated to a crowdfunded Linux distro
+94,2022-02-04,430,135.84,credit,Sold old RAM sticks to a fellow broke coder
+95,2019-11-01,147,374.97,transfer,Split the cost of a community BBQ I brought the vibes
+96,2021-05-22,688,431.84,credit,Sold old RAM sticks to a fellow broke coder
+97,2023-10-16,838,99.43,debit,Garden supplies to grow my own food
+98,2020-11-16,692,28.35,debit,Paid for cloud storage my codes only home
+99,2023-09-21,525,311.41,transfer,Sent cash to friend for gas after a coding jam
+100,2024-03-12,616,291.26,transfer,Split the cost of a community BBQ I brought the vibes
+101,2018-03-23,458,420.15,transfer,Paid buddy back
+102,2016-02-23,660,191.91,debit,Paid for cloud storage my codes only home
+103,2020-10-01,816,718.98,credit,Sold an app prototype to a sketchy startup
+104,2023-10-05,471,88.76,transfer,Split the cost of a community BBQ I brought the vibes
+105,2023-05-06,904,344.62,transfer,Bank transfer to my side hustle account
+106,2017-09-24,834,426.14,credit,Found cash in an old pair of jeans millionaire vibes
+107,2022-08-28,204,786.42,credit,Tax refund thanks IRS
+108,2019-10-04,348,142.31,credit,Bartered coding help for a sack of potatoes
+109,2023-08-19,367,177.34,transfer,Split the cost of a community BBQ I brought the vibes
+110,2019-05-02,169,284.48,transfer,Bank transfer to my side hustle account
+111,2016-03-14,337,705.01,credit,Found cash in an old pair of jeans millionaire vibes
+112,2022-06-23,115,30.66,debit,Donated to a crowdfunded Linux distro
+113,2018-07-27,581,288.19,transfer,Paid buddy back
+114,2020-06-29,566,496.03,transfer,Bank transfer to my side hustle account
+115,2019-05-21,651,304.65,transfer,Sent funds to my investment account crypto dream lives on
+116,2021-05-30,809,879.11,credit,Found cash in an old pair of jeans millionaire vibes
+117,2024-03-03,226,680.1,credit,Found cash in an old pair of jeans millionaire vibes
+118,2024-11-24,606,15.1,debit,Starlink subscription only internet that works out here
+119,2016-12-13,661,146.93,transfer,Paid buddy back
+120,2020-05-06,706,154.28,debit,Bought a used server cabinet at a garage sale
+121,2021-10-19,412,277.53,debit,Renewed free tier IDE license pro is for city folks
+122,2024-01-05,632,118.02,debit,Tossed cash to an open source repo basically a patron
+123,2021-04-15,284,756.68,credit,Sold old RAM sticks to a fellow broke coder
+124,2016-07-03,231,69.01,transfer,Paid buddy back
+125,2017-07-15,957,498.17,transfer,Moved cash to my savings
+126,2024-10-02,442,458.05,transfer,Sent cash to friend for gas after a coding jam
+127,2021-10-26,898,553.76,credit,Sold a bucket of chicken eggs at the farmers market
+128,2018-01-23,792,856.99,credit,Crowdfunding tip for my open source bug fix
+129,2023-09-25,489,65.79,transfer,Moved cash to my savings
+130,2017-02-11,587,41.0,credit,Sold a bucket of chicken eggs at the farmers market
+131,2023-01-05,316,45.39,transfer,Split the cost of a group diner meal
+132,2019-04-13,157,915.2,credit,Sold old RAM sticks to a fellow broke coder
+133,2021-11-20,280,339.97,transfer,Reimbursed fiance
+134,2021-01-17,612,21.43,debit,Replaced a fried USB cable from the dollar store
+135,2020-04-02,823,58.98,credit,Sold an app prototype to a sketchy startup
+136,2024-03-21,288,311.52,transfer,Moved cash to my savings
+137,2018-01-06,583,948.37,credit,Sold an app prototype to a sketchy startup
+138,2023-09-17,153,131.65,debit,Renewed free tier IDE license pro is for city folks
+139,2016-02-08,841,59.08,credit,Debugged neighbors ancient PC for cash and a pie
+140,2024-02-01,495,75.2,debit,Bulk flour for DIY pizza dough sauce is optional
+141,2024-03-24,794,174.81,debit,Bought a used server cabinet at a garage sale
+142,2022-11-30,758,133.05,debit,Gas money for networking at the pizzerias open mic
+143,2023-10-12,334,501.78,credit,Sold an app prototype to a sketchy startup
+144,2024-06-08,726,268.17,credit,Refund from returning a broken mouse to the thrift store
+145,2022-06-19,767,142.04,debit,New batteries for =the UPS keeping my PC alive
+146,2024-11-14,278,272.12,debit,Coffee from the gas station caffeine is life
+147,2017-12-12,861,171.85,transfer,Reimbursed fiance
+148,2017-04-15,970,28.18,credit,Debugged neighbors ancient PC for cash and a pie
+149,2024-01-16,383,238.21,debit,New batteries for =the UPS keeping my PC alive
+150,2024-12-30,551,481.77,credit,Found cash in an old pair of jeans millionaire vibes
+151,2020-05-19,394,83.39,transfer,Sent funds to my investment account crypto dream lives on
+152,2016-11-29,371,395.98,credit,Bartered coding help for a sack of potatoes
+153,2021-12-24,500,491.37,transfer,Sent cash to friend for gas after a coding jam
+154,2021-10-18,699,56.03,transfer,Sent cash to friend for gas after a coding jam
+155,2018-08-06,312,31.32,credit,Sold an app prototype to a sketchy startup
+156,2020-07-28,999,205.11,debit,Renewed free tier IDE license pro is for city folks
+157,2020-10-17,687,282.67,debit,Drove miles to a career fair free coffee no jobs
+158,2021-08-29,417,40.9,debit,Donated to a crowdfunded Linux distro
+159,2024-05-10,818,188.22,credit,Got paid for a Craigslist keyboard repair gig
+160,2019-04-23,668,221.12,transfer,Split the cost of a group diner meal
+161,2018-09-27,141,917.18,credit,Sold old RAM sticks to a fellow broke coder
+162,2016-06-28,931,50.04,debit,Paid for cloud storage my codes only home
+163,2018-07-21,692,77.27,debit,Splurged on a taco from the food truck
+164,2023-11-30,803,431.89,transfer,Split the cost of a community BBQ I brought the vibes
+165,2019-05-25,585,189.68,transfer,Moved cash to my savings
+166,2020-09-16,251,104.81,transfer,Sent funds to my investment account crypto dream lives on
+167,2021-02-23,641,70.55,debit,Bulk flour for DIY pizza dough sauce is optional
+168,2017-01-22,486,139.83,transfer,Sent cash to friend for gas after a coding jam
+169,2017-06-27,417,275.89,transfer,Split the cost of a group diner meal
+170,2022-12-03,300,119.21,debit,Coffee from the gas station caffeine is life
+171,2016-07-13,457,222.87,credit,Sold old RAM sticks to a fellow broke coder
+172,2023-02-26,416,507.45,credit,Sold old RAM sticks to a fellow broke coder
+173,2022-09-12,241,42.43,transfer,Sent funds to my investment account crypto dream lives on
+174,2017-12-16,425,322.15,transfer,Split the cost of a group diner meal
+175,2021-10-02,921,57.81,transfer,Bank transfer to my side hustle account
+176,2020-07-11,261,342.89,credit,Tax refund thanks IRS
+177,2019-07-27,574,760.69,credit,Found cash in an old pair of jeans millionaire vibes
+178,2018-01-01,142,289.92,transfer,Sent funds to my investment account crypto dream lives on
+179,2024-08-19,763,212.83,credit,Debugged neighbors ancient PC for cash and a pie
+180,2024-03-21,112,7.0,credit,Found cash in an old pair of jeans millionaire vibes
+181,2016-11-06,272,105.24,debit,Starlink subscription only internet that works out here
+182,2023-08-07,589,666.9,credit,Grandpa paid for teaching him about AI
+183,2023-10-16,793,253.32,debit,Donated to a crowdfunded Linux distro
+184,2023-10-10,814,75.55,transfer,Bank transfer to my side hustle account
+185,2017-03-23,835,10.32,transfer,Split the cost of a group diner meal
+186,2017-11-20,676,108.26,debit,Renewed free tier IDE license pro is for city folks
+187,2022-06-15,877,848.39,credit,Neighbor paid me for setting up their router
+188,2023-08-01,445,271.44,debit,Tossed cash to an open source repo basically a patron
+189,2016-12-10,555,128.24,debit,Donated to a crowdfunded Linux distro
+190,2017-06-20,607,98.06,transfer,Paid buddy back
+191,2016-01-08,524,757.87,credit,Refund from returning a broken mouse to the thrift store
+192,2024-07-12,242,299.32,transfer,Reimbursed fiance
+193,2020-03-01,639,211.33,credit,Refund from returning a broken mouse to the thrift store
+194,2022-11-01,682,63.15,credit,Sold a bucket of chicken eggs at the farmers market
+195,2024-04-11,326,264.38,transfer,Split the cost of a community BBQ I brought the vibes
+196,2024-02-24,768,136.44,credit,Found cash in an old pair of jeans millionaire vibes
+197,2017-08-16,436,188.07,transfer,Bank transfer to my side hustle account
+198,2018-05-25,645,500.46,credit,Refund from returning a broken mouse to the thrift store
+199,2020-02-13,157,37.59,debit,Replaced a fried USB cable from the dollar store
+200,2021-11-22,622,474.88,credit,Found cash in an old pair of jeans millionaire vibes
+201,2024-09-17,496,409.45,transfer,Sent funds to my investment account crypto dream lives on
+202,2021-11-21,407,202.84,credit,Tax refund thanks IRS
+203,2019-07-27,514,230.55,credit,Sold a bucket of chicken eggs at the farmers market
+204,2023-04-25,974,338.49,transfer,Paid buddy back
+205,2016-01-17,305,484.22,transfer,Moved cash to my savings
+206,2017-07-26,693,94.3,debit,Bought a used server cabinet at a garage sale
+207,2022-04-20,997,353.28,credit,Bartered coding help for a sack of potatoes
+208,2017-07-04,226,446.18,transfer,Reimbursed fiance
+209,2021-01-27,680,590.62,credit,Bartered coding help for a sack of potatoes
+210,2021-03-18,991,669.54,credit,Neighbor paid me for setting up their router
+211,2021-10-29,763,101.07,transfer,Split the cost of a group diner meal
+212,2020-11-26,811,59.56,transfer,Reimbursed fiance
+213,2020-06-19,810,942.71,credit,Got paid for a Craigslist keyboard repair gig
+214,2022-04-04,802,754.93,credit,Found cash in an old pair of jeans millionaire vibes
+215,2016-05-18,576,274.16,transfer,Paid buddy back
+216,2016-02-14,940,274.22,debit,Vet bill for the farm cats who help me code
+217,2016-01-06,655,25.28,debit,Garden supplies to grow my own food
+218,2018-03-07,736,690.4,credit,Neighbor paid me for setting up their router
+219,2018-01-09,309,262.05,transfer,Paid buddy back
+220,2016-07-08,108,425.42,credit,Bartered coding help for a sack of potatoes
+221,2022-10-22,684,196.0,debit,Tossed cash to an open source repo basically a patron
+222,2021-04-22,260,126.08,transfer,Split the cost of a group diner meal
+223,2017-02-18,420,475.63,transfer,Split the cost of a group diner meal
+224,2023-07-20,717,120.19,transfer,Moved cash to my savings
+225,2021-12-27,716,161.71,debit,Bought a used server cabinet at a garage sale
+226,2022-08-31,250,231.37,debit,Drove miles to a career fair free coffee no jobs
+227,2016-09-21,603,244.59,transfer,Moved cash to my savings
+228,2020-01-25,346,168.73,credit,Sold a bucket of chicken eggs at the farmers market
+229,2023-07-12,413,72.73,debit,Paid for a library card to use their WiFi
+230,2018-05-19,788,38.56,debit,Bulk flour for DIY pizza dough sauce is optional
+231,2022-10-14,390,195.94,debit,Bought a dog eared Python book from the thrift store
+232,2023-12-04,795,634.57,credit,Sold an app prototype to a sketchy startup
+233,2016-03-27,144,33.52,debit,Replaced a fried USB cable from the dollar store
+234,2021-08-05,790,144.37,transfer,Sent funds to my investment account crypto dream lives on
+235,2018-12-31,290,175.62,debit,Splurged on a taco from the food truck
+236,2022-12-21,374,24.99,debit,Starlink subscription only internet that works out here
+237,2019-11-06,438,25.97,debit,Bought a dog eared Python book from the thrift store
+238,2019-10-30,567,347.93,credit,Refund from returning a broken mouse to the thrift store
+239,2018-05-01,903,273.38,transfer,Split the cost of a group diner meal
+240,2019-12-20,994,622.26,credit,Crowdfunding tip for my open source bug fix
+241,2022-11-25,676,100.02,transfer,Split the cost of a group diner meal
+242,2023-06-06,597,443.26,transfer,Moved cash to my savings
+243,2021-10-12,737,84.15,credit,Sold a bucket of chicken eggs at the farmers market
+244,2018-11-17,646,144.97,debit,Garden supplies to grow my own food
+245,2016-06-13,386,354.55,credit,Tax refund thanks IRS
+246,2018-03-30,469,78.48,credit,Sold an app prototype to a sketchy startup
+247,2022-08-30,867,121.04,debit,Garden supplies to grow my own food
+248,2020-03-16,393,163.8,debit,Tossed cash to an open source repo basically a patron
+249,2022-09-29,150,59.56,debit,Gas money for networking at the pizzerias open mic
+250,2024-05-26,857,524.24,credit,Refund from returning a broken mouse to the thrift store
+251,2020-03-10,161,148.9,debit,Tossed cash to an open source repo basically a patron
+252,2016-05-07,886,75.47,debit,Donated to a crowdfunded Linux distro
+253,2022-10-10,411,191.04,credit,Tax refund thanks IRS
+254,2017-04-29,969,848.7,credit,Refund from returning a broken mouse to the thrift store
+255,2018-02-15,382,259.19,debit,Splurged on a taco from the food truck
+256,2018-06-21,275,215.81,debit,Gas money for networking at the pizzerias open mic
+257,2024-03-15,186,922.34,credit,Tax refund thanks IRS
+258,2024-06-01,612,83.61,transfer,Moved cash to my savings
+259,2016-01-16,505,666.18,credit,Tax refund thanks IRS
+260,2022-04-24,247,366.16,transfer,Bank transfer to my side hustle account
+261,2020-09-08,364,412.1,credit,Debugged neighbors ancient PC for cash and a pie
+262,2016-08-15,686,802.34,credit,Crowdfunding tip for my open source bug fix
+263,2023-03-21,809,72.88,debit,Splurged on a taco from the food truck
+264,2020-07-30,421,140.3,transfer,Sent funds to my investment account crypto dream lives on
+265,2024-06-06,230,41.25,transfer,Moved cash to my savings
+266,2023-05-20,231,177.68,debit,Paid for firewood choppings my cardio
+267,2018-04-04,269,147.88,debit,Drove miles to a career fair free coffee no jobs
+268,2018-06-02,636,221.38,transfer,Bank transfer to my side hustle account
+269,2018-07-27,300,25.44,credit,Tax refund thanks IRS
+270,2022-07-25,675,16.1,transfer,Sent funds to my investment account crypto dream lives on
+271,2020-10-12,297,199.96,debit,Gas money for networking at the pizzerias open mic
+272,2020-08-06,184,341.78,transfer,Sent cash to friend for gas after a coding jam
+273,2024-12-14,798,179.68,debit,Coffee from the gas station caffeine is life
+274,2020-08-17,817,442.75,transfer,Bank transfer to my side hustle account
+275,2017-09-22,693,592.17,credit,Found cash in an old pair of jeans millionaire vibes
+276,2019-04-08,755,776.17,credit,Got paid for a Craigslist keyboard repair gig
+277,2024-02-21,504,233.83,transfer,Split the cost of a community BBQ I brought the vibes
+278,2023-10-01,358,80.66,debit,Grocery run for ramen and clearance beef
+279,2019-11-15,198,865.84,credit,Refund from returning a broken mouse to the thrift store
+280,2019-01-21,104,349.17,transfer,Moved cash to my savings
+281,2020-10-09,950,65.22,debit,Paid for a library card to use their WiFi
+282,2016-08-11,606,135.37,debit,New batteries for =the UPS keeping my PC alive
+283,2019-09-05,575,111.45,debit,Starlink subscription only internet that works out here
+284,2021-10-27,919,211.91,debit,Paid for cloud storage my codes only home
+285,2017-06-03,762,148.03,credit,Tax refund thanks IRS
+286,2024-09-09,627,713.17,credit,Refund from returning a broken mouse to the thrift store
+287,2018-09-19,223,226.78,debit,Drove miles to a career fair free coffee no jobs
+288,2016-08-12,692,266.77,debit,Vet bill for the farm cats who help me code
+289,2019-12-21,171,30.53,transfer,Moved cash to my savings
+290,2018-06-07,857,6.29,credit,Tax refund thanks IRS
+291,2020-02-03,886,135.51,debit,Starlink subscription only internet that works out here
+292,2023-10-29,430,73.99,debit,Household expenses lightbulbs and hope
+293,2020-12-13,999,395.74,transfer,Sent cash to friend for gas after a coding jam
+294,2017-02-24,926,255.29,debit,Donated to a crowdfunded Linux distro
+295,2022-02-24,221,240.87,debit,Bought a used server cabinet at a garage sale
+296,2023-06-02,589,407.8,transfer,Split the cost of a group diner meal
+297,2019-04-22,477,636.86,credit,Sold old RAM sticks to a fellow broke coder
+298,2017-06-24,365,19.16,debit,Renewed free tier IDE license pro is for city folks
+299,2024-09-22,543,587.96,credit,Refund from returning a broken mouse to the thrift store
+300,2019-04-10,511,249.28,debit,Donated to a crowdfunded Linux distro
+301,2019-02-05,894,143.63,transfer,Reimbursed fiance
+302,2021-09-06,254,242.01,debit,Gas money for networking at the pizzerias open mic
+303,2022-03-02,114,171.43,credit,Got paid for a Craigslist keyboard repair gig
+304,2020-07-03,655,217.1,credit,Tax refund thanks IRS
+305,2017-06-20,121,100.0,debit,Vet bill for the farm cats who help me code
+306,2023-01-14,312,250.77,credit,Refund from returning a broken mouse to the thrift store
+307,2023-05-27,507,271.68,transfer,Paid buddy back
+308,2016-04-27,540,365.19,transfer,Bank transfer to my side hustle account
+309,2016-10-14,741,22.54,transfer,Bank transfer to my side hustle account
+310,2024-11-24,197,293.74,transfer,Split the cost of a community BBQ I brought the vibes
+311,2024-09-06,814,192.62,transfer,Split the cost of a group diner meal
+312,2023-05-02,598,127.47,transfer,Paid buddy back
+313,2020-04-22,661,60.98,debit,Drove miles to a career fair free coffee no jobs
+314,2022-08-29,747,310.71,transfer,Sent cash to friend for gas after a coding jam
+315,2024-08-02,929,182.1,debit,Tossed cash to an open source repo basically a patron
+316,2019-03-08,349,826.96,credit,Refund from returning a broken mouse to the thrift store
+317,2024-07-27,613,225.86,debit,Donated to a crowdfunded Linux distro
+318,2024-01-25,260,234.11,debit,Gas money for networking at the pizzerias open mic
+319,2021-05-04,322,220.3,transfer,Reimbursed fiance
+320,2023-12-18,779,65.84,debit,Paid for firewood choppings my cardio
+321,2021-12-28,774,308.62,transfer,Reimbursed fiance
+322,2024-11-28,332,228.72,transfer,Bank transfer to my side hustle account
+323,2021-06-12,486,259.8,debit,Bought a dog eared Python book from the thrift store
+324,2022-07-18,624,188.87,debit,Bought a used server cabinet at a garage sale
+325,2022-01-21,423,96.79,transfer,Paid buddy back
+326,2023-07-24,828,184.91,transfer,Split the cost of a group diner meal
+327,2016-09-27,743,101.05,debit,Starlink subscription only internet that works out here
+328,2020-05-23,354,212.92,debit,Drove miles to a career fair free coffee no jobs
+329,2024-09-08,161,31.7,debit,Vet bill for the farm cats who help me code
+330,2022-05-08,582,535.93,credit,Neighbor paid me for setting up their router
+331,2018-01-10,224,486.46,credit,Bartered coding help for a sack of potatoes
+332,2024-09-29,804,292.68,debit,New batteries for =the UPS keeping my PC alive
+333,2017-04-24,653,109.02,debit,Bulk flour for DIY pizza dough sauce is optional
+334,2018-10-17,201,232.94,debit,Gas money for networking at the pizzerias open mic
+335,2021-08-13,190,302.28,transfer,Sent cash to friend for gas after a coding jam
+336,2024-06-12,912,201.43,debit,Garden supplies to grow my own food
+337,2022-12-23,318,232.71,debit,Grocery run for ramen and clearance beef
+338,2020-01-20,659,387.81,transfer,Split the cost of a community BBQ I brought the vibes
+339,2022-04-18,768,248.28,debit,Paid for firewood choppings my cardio
+340,2020-09-19,267,523.14,credit,Bartered coding help for a sack of potatoes
+341,2017-06-02,861,494.96,transfer,Moved cash to my savings
+342,2023-02-28,573,298.21,transfer,Reimbursed fiance
+343,2021-08-17,504,155.32,debit,Paid for cloud storage my codes only home
+344,2024-12-21,323,128.92,transfer,Split the cost of a group diner meal
+345,2016-09-21,722,241.16,transfer,Moved cash to my savings
+346,2016-10-12,919,276.6,credit,Bartered coding help for a sack of potatoes
+347,2016-08-07,430,301.02,credit,Grandpa paid for teaching him about AI
+348,2019-04-21,118,488.64,transfer,Split the cost of a community BBQ I brought the vibes
+349,2022-05-19,588,264.7,transfer,Split the cost of a group diner meal
+350,2023-07-18,831,218.89,debit,Household expenses lightbulbs and hope
+351,2017-08-24,455,565.33,credit,Crowdfunding tip for my open source bug fix
+352,2016-03-08,269,93.08,transfer,Sent cash to friend for gas after a coding jam
+353,2020-03-08,120,61.89,debit,Bulk flour for DIY pizza dough sauce is optional
+354,2019-08-30,522,395.44,credit,Sold an app prototype to a sketchy startup
+355,2023-10-21,684,13.7,transfer,Moved cash to my savings
+356,2018-01-31,480,312.4,transfer,Paid buddy back
+357,2024-03-16,274,210.89,transfer,Bank transfer to my side hustle account
+358,2019-08-11,281,247.89,debit,Bulk flour for DIY pizza dough sauce is optional
+359,2021-01-29,551,318.33,transfer,Sent funds to my investment account crypto dream lives on
+360,2019-04-13,626,275.95,credit,Got paid for a Craigslist keyboard repair gig
+361,2022-12-31,827,286.18,debit,Gas money for networking at the pizzerias open mic
+362,2024-12-25,368,417.1,transfer,Sent funds to my investment account crypto dream lives on
+363,2018-06-19,306,345.47,transfer,Sent cash to friend for gas after a coding jam
+364,2021-12-14,939,479.7,transfer,Split the cost of a community BBQ I brought the vibes
+365,2019-10-11,568,206.27,debit,Repairs for the drafty farmhouse leaky roof again
+366,2016-08-05,795,259.55,transfer,Sent funds to my investment account crypto dream lives on
+367,2022-01-12,845,351.86,transfer,Sent funds to my investment account crypto dream lives on
+368,2023-06-11,489,402.53,transfer,Moved cash to my savings
+369,2018-07-24,322,313.9,credit,Sold old RAM sticks to a fellow broke coder
+370,2024-06-08,490,164.55,transfer,Paid buddy back
+371,2021-07-12,159,120.84,transfer,Split the cost of a group diner meal
+372,2016-03-31,132,443.99,transfer,Moved cash to my savings
+373,2019-06-02,778,122.77,credit,Tax refund thanks IRS
+374,2018-12-03,769,226.09,debit,New batteries for =the UPS keeping my PC alive
+375,2016-06-07,333,121.52,debit,Household expenses lightbulbs and hope
+376,2021-03-16,437,192.3,debit,Vet bill for the farm cats who help me code
+377,2019-11-14,986,851.49,credit,Tax refund thanks IRS
+378,2021-04-10,456,89.77,transfer,Split the cost of a group diner meal
+379,2023-09-08,987,410.82,transfer,Sent cash to friend for gas after a coding jam
+380,2022-04-03,614,263.37,debit,New batteries for =the UPS keeping my PC alive
+381,2023-10-23,728,453.23,transfer,Sent cash to friend for gas after a coding jam
+382,2016-03-23,579,100.96,transfer,Bank transfer to my side hustle account
+383,2019-09-27,534,156.38,credit,Refund from returning a broken mouse to the thrift store
+384,2020-03-30,161,139.75,credit,Got paid for a Craigslist keyboard repair gig
+385,2023-07-05,618,201.32,transfer,Bank transfer to my side hustle account
+386,2023-12-14,548,69.7,debit,Tossed cash to an open source repo basically a patron
+387,2021-10-12,496,21.94,credit,Bartered coding help for a sack of potatoes
+388,2023-12-26,724,685.32,credit,Got paid for a Craigslist keyboard repair gig
+389,2023-12-04,877,273.5,debit,Paid for cloud storage my codes only home
+390,2021-12-13,413,123.29,transfer,Sent cash to friend for gas after a coding jam
+391,2020-02-11,428,505.81,credit,Bartered coding help for a sack of potatoes
+392,2019-03-27,650,274.04,debit,Bought a dog eared Python book from the thrift store
+393,2023-05-05,245,190.34,debit,Tossed cash to an open source repo basically a patron
+394,2019-05-26,566,138.75,debit,Bought a dog eared Python book from the thrift store
+395,2018-07-11,120,105.8,transfer,Paid buddy back
+396,2019-06-17,642,237.03,debit,Paid for firewood choppings my cardio
+397,2024-12-15,440,506.09,credit,Tax refund thanks IRS
+398,2019-09-15,162,195.44,credit,Sold a bucket of chicken eggs at the farmers market
+399,2018-05-02,687,399.7,credit,Tax refund thanks IRS
+400,2019-05-19,328,320.73,transfer,Split the cost of a community BBQ I brought the vibes
+401,2022-09-19,374,250.79,debit,Paid for firewood choppings my cardio
+402,2023-08-31,849,254.17,transfer,Split the cost of a group diner meal
+403,2021-03-24,557,198.82,transfer,Moved cash to my savings
+404,2018-05-05,676,13.85,debit,Household expenses lightbulbs and hope
+405,2024-03-30,279,61.75,credit,Crowdfunding tip for my open source bug fix
+406,2019-01-11,350,95.82,transfer,Sent cash to friend for gas after a coding jam
+407,2023-12-17,103,51.23,credit,Neighbor paid me for setting up their router
+408,2019-05-17,172,259.14,debit,Paid for a library card to use their WiFi
+409,2021-05-15,433,20.25,debit,New batteries for =the UPS keeping my PC alive
+410,2020-02-21,241,364.4,transfer,Moved cash to my savings
+411,2016-08-30,485,36.31,debit,Garden supplies to grow my own food
+412,2018-03-15,396,5.21,debit,Coffee from the gas station caffeine is life
+413,2018-07-06,535,496.73,transfer,Split the cost of a community BBQ I brought the vibes
+414,2021-11-23,267,260.75,transfer,Bank transfer to my side hustle account
+415,2017-03-24,368,463.38,transfer,Split the cost of a community BBQ I brought the vibes
+416,2018-10-23,524,249.24,debit,New batteries for =the UPS keeping my PC alive
+417,2021-01-28,931,936.99,credit,Found cash in an old pair of jeans millionaire vibes
+418,2019-10-21,163,809.52,credit,Sold old RAM sticks to a fellow broke coder
+419,2020-02-02,248,245.74,transfer,Split the cost of a community BBQ I brought the vibes
+420,2016-11-06,613,47.26,debit,Electricity bill to keep the coding rig humming
+421,2023-01-21,430,176.49,debit,Splurged on a taco from the food truck
+422,2019-09-24,541,773.95,credit,Debugged neighbors ancient PC for cash and a pie
+423,2024-11-18,982,215.63,debit,New batteries for =the UPS keeping my PC alive
+424,2016-09-04,102,193.8,debit,Bought a dog eared Python book from the thrift store
+425,2024-10-02,543,14.97,debit,Replaced a fried USB cable from the dollar store
+426,2017-04-28,911,427.74,transfer,Moved cash to my savings
+427,2019-03-26,207,297.5,debit,Paid for cloud storage my codes only home
+428,2018-08-21,985,437.5,transfer,Moved cash to my savings
+429,2020-07-30,344,323.77,transfer,Sent funds to my investment account crypto dream lives on
+430,2016-05-03,575,41.72,credit,Grandpa paid for teaching him about AI
+431,2023-05-13,908,188.36,debit,Tossed cash to an open source repo basically a patron
+432,2024-06-23,607,152.34,credit,Neighbor paid me for setting up their router
+433,2018-06-19,211,890.98,credit,Sold a bucket of chicken eggs at the farmers market
+434,2023-07-09,877,788.7,credit,Debugged neighbors ancient PC for cash and a pie
+435,2018-10-27,221,245.46,debit,Bought a used server cabinet at a garage sale
+436,2016-05-18,459,337.7,credit,Found cash in an old pair of jeans millionaire vibes
+437,2019-06-07,820,59.37,debit,Gas money for networking at the pizzerias open mic
+438,2017-03-05,939,42.3,debit,Replaced a fried USB cable from the dollar store
+439,2017-06-06,777,211.88,debit,Bought a used server cabinet at a garage sale
+440,2024-06-11,235,32.4,transfer,Paid buddy back
+441,2023-09-27,515,286.06,debit,Gas money for networking at the pizzerias open mic
+442,2020-12-03,622,614.04,credit,Sold old RAM sticks to a fellow broke coder
+443,2017-07-29,511,327.76,credit,Tax refund thanks IRS
+444,2017-02-10,496,274.01,debit,Tossed cash to an open source repo basically a patron
+445,2022-12-03,321,233.17,transfer,Sent cash to friend for gas after a coding jam
+446,2024-01-11,468,170.61,credit,Tax refund thanks IRS
+447,2023-07-18,676,320.04,credit,Got paid for a Craigslist keyboard repair gig
+448,2017-02-15,834,352.89,transfer,Split the cost of a community BBQ I brought the vibes
+449,2022-12-20,502,502.32,credit,Debugged neighbors ancient PC for cash and a pie
+450,2017-03-01,630,57.42,credit,Neighbor paid me for setting up their router
+451,2017-05-29,202,43.62,debit,Electricity bill to keep the coding rig humming
+452,2022-11-02,187,195.88,credit,Grandpa paid for teaching him about AI
+453,2024-01-25,373,509.75,credit,Sold an app prototype to a sketchy startup
+454,2017-10-16,984,65.01,debit,Coffee from the gas station caffeine is life
+455,2019-05-29,383,61.52,transfer,Moved cash to my savings
+456,2021-11-16,142,57.53,transfer,Reimbursed fiance
+457,2016-03-12,216,382.45,transfer,Sent cash to friend for gas after a coding jam
+458,2022-12-18,783,38.24,debit,Garden supplies to grow my own food
+459,2018-04-19,349,284.4,transfer,Moved cash to my savings
+460,2017-03-27,901,297.51,debit,New batteries for =the UPS keeping my PC alive
+461,2020-01-06,331,80.54,transfer,Reimbursed fiance
+462,2022-03-04,477,329.63,transfer,Bank transfer to my side hustle account
+463,2020-03-12,623,72.67,credit,Found cash in an old pair of jeans millionaire vibes
+464,2023-11-24,237,262.4,debit,Renewed free tier IDE license pro is for city folks
+465,2021-03-06,426,280.28,debit,Gas money for networking at the pizzerias open mic
+466,2019-02-02,863,218.19,debit,Starlink subscription only internet that works out here
+467,2019-11-09,913,219.96,transfer,Split the cost of a community BBQ I brought the vibes
+468,2016-10-16,124,684.54,credit,Sold an app prototype to a sketchy startup
+469,2016-07-28,981,791.65,credit,Tax refund thanks IRS
+470,2020-04-25,178,452.69,transfer,Sent cash to friend for gas after a coding jam
+471,2017-06-15,443,130.43,debit,Garden supplies to grow my own food
+472,2019-03-14,133,112.06,debit,Tossed cash to an open source repo basically a patron
+473,2019-03-25,405,198.2,debit,Vet bill for the farm cats who help me code
+474,2016-07-24,480,281.88,credit,Sold old RAM sticks to a fellow broke coder
+475,2024-08-01,556,843.6,credit,Sold an app prototype to a sketchy startup
+476,2022-04-27,543,314.25,credit,Sold old RAM sticks to a fellow broke coder
+477,2021-05-05,991,818.79,credit,Tax refund thanks IRS
+478,2021-12-12,767,846.81,credit,Sold an app prototype to a sketchy startup
+479,2017-07-02,428,276.95,transfer,Sent cash to friend for gas after a coding jam
+480,2024-05-17,579,53.81,debit,Repairs for the drafty farmhouse leaky roof again
+481,2020-11-14,614,743.89,credit,Tax refund thanks IRS
+482,2019-04-22,520,73.7,debit,Vet bill for the farm cats who help me code
+483,2020-06-14,556,75.36,transfer,Bank transfer to my side hustle account
+484,2023-06-17,933,322.83,credit,Grandpa paid for teaching him about AI
+485,2020-11-17,928,232.85,transfer,Sent funds to my investment account crypto dream lives on
+486,2018-10-05,324,6.93,debit,Tossed cash to an open source repo basically a patron
+487,2018-03-31,143,197.37,debit,New batteries for =the UPS keeping my PC alive
+488,2019-12-24,543,296.51,transfer,Paid buddy back
+489,2022-04-27,989,153.19,credit,Refund from returning a broken mouse to the thrift store
+490,2020-07-06,936,88.92,debit,Drove miles to a career fair free coffee no jobs
+491,2023-12-01,997,576.89,credit,Debugged neighbors ancient PC for cash and a pie
+492,2023-04-16,268,833.87,credit,Refund from returning a broken mouse to the thrift store
+493,2021-01-11,372,295.45,debit,Drove miles to a career fair free coffee no jobs
+494,2023-12-15,990,441.7,transfer,Moved cash to my savings
+495,2022-08-25,938,212.66,transfer,Split the cost of a group diner meal
+496,2016-06-29,539,425.79,credit,Found cash in an old pair of jeans millionaire vibes
+497,2024-11-28,963,204.6,debit,Paid for cloud storage my codes only home
+498,2021-05-21,761,655.38,credit,Bartered coding help for a sack of potatoes
+499,2024-02-29,830,326.86,transfer,Reimbursed fiance
+500,2019-09-15,651,244.38,transfer,Split the cost of a community BBQ I brought the vibes
