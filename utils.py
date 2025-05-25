@@ -208,10 +208,22 @@ class FinanceUtils:
                 self.logger.error(f"Invalid date format: {date_input}")
                 print("Invalid date format. Please enter in YYYY-MM-DD format.")
 
-        # Customer ID input with suggestions
-        customer_ids = sorted(set(t['customer_id'] for t in self.transactions if t['customer_id'] > 0))
+        # Customer ID input with suggestions from most recent transactions
+        # Sort transactions by date (descending) and get unique customer IDs
+        recent_transactions = sorted(self.transactions, key=lambda t: t['date'], reverse=True)
+        seen_ids = set()
+        customer_ids = []
+        for t in recent_transactions:
+            if t['customer_id'] > 0 and t['customer_id'] not in seen_ids:
+                customer_ids.append(t['customer_id'])
+                seen_ids.add(t['customer_id'])
+                if len(customer_ids) >= 10:  # Limit to 10 IDs
+                    break
         if customer_ids:
-            print(f"Valid customer IDs: {', '.join(map(str, customer_ids[:10]))}{'...' if len(customer_ids) > 10 else ''}")
+            print(f"Recent customer IDs: {', '.join(map(str, customer_ids))}{'...' if len(seen_ids) < len(set(t['customer_id'] for t in self.transactions if t['customer_id'] > 0)) else ''}")
+        else:
+            print("No customer IDs available.")
+            
         while True:
             customer_input = input("Enter customer ID (positive integer): ").strip()
             if customer_input.lower() == 'cancel':
@@ -287,7 +299,20 @@ class FinanceUtils:
             'description': description
         }
         self.transactions.append(transaction)
-        print(f"Transaction {transaction} added successfully!")
+        
+        # Format and display transaction using tabulate
+        table_data = [[
+            transaction['transaction_id'],
+            transaction['date'].strftime('%b %d, %Y'),
+            transaction['customer_id'],
+            f"${abs(transaction['amount']):,.2f}{' (Debit)' if transaction['amount'] < 0 else ''}",
+            transaction['type'].capitalize(),
+            transaction['description'][:30] + ('...' if len(transaction['description']) > 30 else '')
+        ]]
+        headers = ['ID', 'Date', 'Customer', 'Amount', 'Type', 'Description']
+        print("\nTransaction added successfully:")
+        print(tabulate(table_data, headers=headers, tablefmt='grid'))
+
         return True
 
     def view_transactions(self, filter_type=None, filter_year=None):
@@ -411,10 +436,19 @@ class FinanceUtils:
                 self.logger.error(f"Invalid transaction ID input: '{id_input}'")
                 print("Error: Transaction ID must be an integer. Try again.")
 
-        # Display current transaction
-        print(f"\nUpdating Transaction {transaction_id}:")
-        print(f"  Current: {transaction['date'].strftime('%Y-%m-%d')}, Customer {transaction['customer_id']}, "
-              f"${abs(transaction['amount']):,.2f} {transaction['type'].capitalize()}, {transaction['description']}")
+        # Show current transaction details
+        print("\nCurrent transaction details:")
+        table_data = [[
+            transaction['transaction_id'],
+            transaction['date'].strftime('%b %d, %Y'),
+            transaction['customer_id'],
+            f"${abs(transaction['amount']):,.2f}{' (Debit)' if transaction['amount'] < 0 else ''}",
+            transaction['type'].capitalize(),
+            transaction['description'][:30] + ('...' if len(transaction['description']) > 30 else '')
+        ]]
+        headers = ['ID', 'Date', 'Customer', 'Amount', 'Type', 'Description']
+        print(tabulate(table_data, headers=headers, tablefmt='grid'))
+
         print("Enter new values (press Enter to keep current, 'cancel' to abort)")
 
         # Date input
@@ -520,7 +554,20 @@ class FinanceUtils:
             'type': type_input,
             'description': description
         })
-        print(f"Transaction {transaction_id} updated successfully!")
+
+
+        # Display updated transaction
+        print("\nTransaction updated successfully:")
+        table_data = [[
+            transaction['transaction_id'],
+            transaction['date'].strftime('%b %d, %Y'),
+            transaction['customer_id'],
+            f"${abs(transaction['amount']):,.2f}{' (Debit)' if transaction['amount'] < 0 else ''}",
+            transaction['type'].capitalize(),
+            transaction['description'][:30] + ('...' if len(transaction['description']) > 30 else '')
+        ]]
+        print(tabulate(table_data, headers=headers, tablefmt='grid'))
+
         return True
     
     def delete_transaction(self):
@@ -554,8 +601,16 @@ class FinanceUtils:
 
         # Display transaction
         print(f"\nTransaction to delete (ID {transaction_id}):")
-        print(f"  {transaction['date'].strftime('%Y-%m-%d')}, Customer {transaction['customer_id']}, "
-              f"${abs(transaction['amount']):,.2f} {transaction['type'].capitalize()}, {transaction['description']}")
+        table_data = [[
+            transaction['transaction_id'],
+            transaction['date'].strftime('%b %d, %Y'),
+            transaction['customer_id'],
+            f"${abs(transaction['amount']):,.2f}{' (Debit)' if transaction['amount'] < 0 else ''}",
+            transaction['type'].capitalize(),
+            transaction['description'][:30] + ('...' if len(transaction['description']) > 30 else '')
+        ]]
+        headers = ['ID', 'Date', 'Customer', 'Amount', 'Type', 'Description']
+        print(tabulate(table_data, headers=headers, tablefmt='grid'))
 
         # Confirm deletion
         while True:
