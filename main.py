@@ -5,8 +5,14 @@ def main():
     finance = FinanceUtils()
     finance.clear_terminal()  # Clear terminal before showing menu
 
+    # Optional colorama setup
+    cyan = finance.color['cyan']
+    green = finance.color['green']
+    red = finance.color['red']
+    reset = finance.color['reset']
+
     while True:
-        print("\nSmart Finance Analyzer")
+        print(f"\n{cyan}Smart Finance Analyzer{reset}")
         print("1. Load Transactions")
         print("2. Add Transaction")
         print("3. View Transactions")
@@ -20,14 +26,14 @@ def main():
 
         if choice == '1':
             if finance.load_transactions():
-                print("Transactions loaded successfully.")
+                print(f"{green}Transactions loaded successfully.{reset}")
             else:
-                print("Failed to load transactions.")
+                print(f"{red}Failed to load transactions.{reset}")
         elif choice == '2':
             if finance.add_transaction():
-                print("Transaction added to memory. Save to persist changes.")
+                print(f"{green}Transaction added to memory. Save to persist changes.{reset}")
             else:
-                print("Transaction not added.")
+                print(f"Transaction not added.")
         elif choice == '3':
             filter_type = input("Enter type to filter (credit/debit/transfer, or press Enter for all): ").strip()
             if not filter_type:
@@ -39,31 +45,31 @@ def main():
                 print("No transactions displayed.")
         elif choice == '4':
             if finance.update_transaction():
-                print("Transaction updated in memory. Save to persist changes.")
+                print(f"{green}Transaction updated in memory. Save to persist changes.{reset}")
             else:
                 print("Transaction not updated.")
         elif choice == '5':
             if finance.delete_transaction():
-                print("Transaction deleted from memory. Save to persist changes.")
+                print(f"{green}Transaction deleted from memory. Save to persist changes.{reset}")
             else:
                 print("Transaction not deleted.")
         elif choice == '6':
             if finance.analyze_transactions():
-                print("Analysis complete. Check the report for details.")
+                print(f"{green}Analysis complete.{reset}")
             else:
-                print("Analysis failed.")
+                print(f"{red}Analysis failed.{reset}")
         elif choice == '7':
             if finance.save_transactions():
-                print("Transactions saved successfully.")
+                print(f"{green}Transactions saved successfully.{reset}")
             else:
-                print("Failed to save transactions.")
+                print(f"{red}Failed to save transactions.{reset}")
         elif choice == '8':
             if finance.generate_report():
-                print("Report generated successfully.")
+                print(f"{green}Report generated successfully.{reset}")
             else:
-                print("Failed to generate report.")
+                print(f"{red}Failed to generate report.{reset}")
         elif choice == '9':
-            print("Exiting the program.")
+            print(f"Exiting the program. {cyan}Goodbye!{reset}")
             break
         else:
             print("Invalid option or function not implemented.")

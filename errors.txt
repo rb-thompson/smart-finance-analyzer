@@ -177,3 +177,5 @@
 2025-05-23 13:54:08,719 - ERROR - Row 501: Negative amount '-73.0'
 2025-05-23 13:55:56,444 - ERROR - Transaction ID not found: '5'
 2025-05-25 08:11:02,807 - ERROR - Invalid transaction type input: loan
+2025-05-25 12:22:17,134 - ERROR - Invalid transaction ID input: 'aa'
+2025-05-25 12:22:33,136 - ERROR - Invalid date input: 'da'

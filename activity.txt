@@ -1,0 +1,23 @@
+2025-05-25 11:02:26,766 - INFO - Loaded 100002 transactions from 'financial_transactions.csv'
+2025-05-25 11:02:26,774 - INFO - Created backup: 'snapshots\backup_20250525_110226.csv'
+2025-05-25 11:03:37,164 - INFO - Added transaction ID 100004: customer_id=918, date=2025-03-24, amount=-27.50, type=debit, description=Lunch from a food truck.
+2025-05-25 11:04:41,127 - INFO - Updated transaction ID 100004: customer_id=918, date=2025-04-24, amount=-27.50, type=debit, description=Lunch from a food truck.
+2025-05-25 11:04:59,154 - INFO - Deleted transaction ID 100004: customer_id=918, date=2025-04-24, amount=-27.50, type=debit, description=Lunch from a food truck.
+2025-05-25 11:05:59,684 - INFO - Saved 100002 transactions to 'financial_transactions.csv'
+2025-05-25 11:18:41,709 - INFO - Loaded 100002 transactions from 'financial_transactions.csv'
+2025-05-25 11:18:41,716 - INFO - Created backup: 'snapshots\backup_20250525_111841.csv'
+2025-05-25 11:27:54,801 - INFO - Loaded 100002 transactions from 'financial_transactions.csv'
+2025-05-25 11:27:54,808 - INFO - Created backup: 'snapshots\backup_20250525_112754.csv'
+2025-05-25 11:35:02,097 - INFO - Loaded 100002 transactions from 'financial_transactions.csv'
+2025-05-25 11:35:02,103 - INFO - Created backup: 'snapshots\backup_20250525_113502.csv'
+2025-05-25 11:35:39,956 - INFO - Saved 100002 transactions to 'financial_transactions.csv'
+2025-05-25 12:08:58,063 - INFO - Added transaction ID 1: customer_id=100, date=2020-04-05, amount=50.00, type=credit, description=Initial deposit.
+2025-05-25 12:20:29,719 - INFO - Loaded 100002 transactions from 'financial_transactions.csv'
+2025-05-25 12:20:29,726 - INFO - Created backup: 'snapshots\backup_20250525_122029.csv'
+2025-05-25 12:21:07,258 - INFO - Added transaction ID 100004: customer_id=918, date=2025-03-12, amount=350.00, type=transfer, description=Donated to community fund.
+2025-05-25 12:21:42,608 - INFO - Loaded 100002 transactions from 'financial_transactions.csv'
+2025-05-25 12:21:42,614 - INFO - Created backup: 'snapshots\backup_20250525_122142.csv'
+2025-05-25 12:22:17,134 - ERROR - Invalid transaction ID input: 'aa'
+2025-05-25 12:22:33,136 - ERROR - Invalid date input: 'da'
+2025-05-25 12:23:11,014 - INFO - Updated transaction ID 100001: customer_id=844, date=2020-04-05, amount=200.00, type=credit, description=Water and utilities.
+2025-05-25 12:24:32,661 - INFO - Saved 100002 transactions to 'financial_transactions.csv'

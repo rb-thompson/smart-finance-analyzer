@@ -13,28 +13,65 @@ class FinanceUtils:
         self.transactions = []
         # Configure logging with a custom FileHandler
         self.logger = logging.getLogger('FinanceUtils')
-        self.logger.setLevel(logging.ERROR)
+        self.logger.setLevel(logging.INFO)
         formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+
+        # Error handler for errors.txt
         try:
-            self.file_handler = logging.FileHandler('errors.txt', mode='a', encoding='utf-8')
-            self.file_handler.setFormatter(formatter)
-            self.logger.addHandler(self.file_handler)
+            self.error_handler = logging.FileHandler('errors.txt', mode='a', encoding='utf-8')
+            self.error_handler.setLevel(logging.ERROR)
+            self.error_handler.setFormatter(formatter)
+            self.logger.addHandler(self.error_handler)
         except IOError as e:
             print(f"Error: Cannot configure logging to errors.txt: {e}")
             console_handler = logging.StreamHandler()
+            console_handler.setLevel(logging.ERROR)
             console_handler.setFormatter(formatter)
             self.logger.addHandler(console_handler)
-            self.file_handler = None
+            self.error_handler = None
+
+        # Info handler for activity.txt
+        try:
+            self.activity_handler = logging.FileHandler('activity.txt', mode='a', encoding='utf-8')
+            self.activity_handler.setLevel(logging.INFO)
+            self.activity_handler.setFormatter(formatter)
+            self.logger.addHandler(self.activity_handler)
+        except IOError as e:
+            print(f"Error: Cannot configure logging to activity.txt: {e}")
+            if not self.error_handler:  # Only add console handler if no error handler exists
+                console_handler = logging.StreamHandler()
+                console_handler.setLevel(logging.INFO)
+                console_handler.setFormatter(formatter)
+                self.logger.addHandler(console_handler)
+            self.activity_handler = None
+
+        # Initialize colorama for colored output (optional)
+        try:
+            from colorama import init, Fore, Style
+            init(autoreset=True)  # Auto-reset colors after each print
+            self.color = {
+                'cyan': Fore.CYAN,
+                'green': Fore.GREEN,
+                'yellow': Fore.YELLOW,
+                'red': Fore.RED,
+                'reset': Style.RESET_ALL
+            }
+        except ImportError:
+            self.logger.info("Colorama not installed; using plain text output.")
+            self.logger.info("For a more visual experience, consider installing colorama.")
+            self.color = {'cyan': '', 'green': '', 'yellow': '', 'red': '', 'reset': ''}  # Fallback to empty strings
 
     # Ensure file handler is closed when instance is destroyed.
     def __del__(self):
-        """Ensure file handler is closed when instance is destroyed."""
-        if hasattr(self, 'file_handler') and self.file_handler:
-            self.file_handler.close()
-            self.logger.removeHandler(self.file_handler)
+        """Ensure file handlers are closed when instance is destroyed."""
+        if hasattr(self, 'error_handler') and self.error_handler:
+            self.error_handler.close()
+            self.logger.removeHandler(self.error_handler)
+        if hasattr(self, 'activity_handler') and self.activity_handler:
+            self.activity_handler.close()
+            self.logger.removeHandler(self.activity_handler)
 
     # Helper method to find a transaction by its ID.
-    # This method is used internally to retrieve a transaction for updating or deleting.
     def _get_transaction_by_id(self, transaction_id):
         """Helper method to find a transaction by its ID."""
         for t in self.transactions:
@@ -155,6 +192,7 @@ class FinanceUtils:
                     return False
                 
                 print(f"Loaded {len(self.transactions)} transactions from '{filename}'.")
+                self.logger.info(f"Loaded {len(self.transactions)} transactions from '{filename}'")
 
                 # Create a backup of the original file and save it with a timestamp to /snapshots
                 if not os.path.exists('snapshots'):
@@ -166,6 +204,7 @@ class FinanceUtils:
                     with open(filename, 'rb') as src_file, open(backup_filename, 'wb') as dst_file:
                         dst_file.write(src_file.read())
                     print(f"Backup created: '{backup_filename}'")
+                    self.logger.info(f"Created backup: '{backup_filename}'")
                 except Exception as e:
                     self.logger.error(f"Failed to create backup: {e}")
                     print(f"Warning: Failed to create backup: {e}")
@@ -223,7 +262,7 @@ class FinanceUtils:
             print(f"Recent customer IDs: {', '.join(map(str, customer_ids))}{'...' if len(seen_ids) < len(set(t['customer_id'] for t in self.transactions if t['customer_id'] > 0)) else ''}")
         else:
             print("No customer IDs available.")
-            
+
         while True:
             customer_input = input("Enter customer ID (positive integer): ").strip()
             if customer_input.lower() == 'cancel':
@@ -309,9 +348,15 @@ class FinanceUtils:
             transaction['type'].capitalize(),
             transaction['description'][:30] + ('...' if len(transaction['description']) > 30 else '')
         ]]
-        headers = ['ID', 'Date', 'Customer', 'Amount', 'Type', 'Description']
+        headers = [f"{self.color['yellow']}{h}{self.color['reset']}" for h in ['ID', 'Date', 'Customer', 'Amount', 'Type', 'Description']]
         print("\nTransaction added successfully:")
         print(tabulate(table_data, headers=headers, tablefmt='grid'))
+
+        self.logger.info(
+            f"Added transaction ID {transaction_id}: customer_id={customer_id}, "
+            f"date={date_obj.strftime('%Y-%m-%d')}, amount={amount:.2f}, type={type_input}, "
+            f"description={description[:30]}{'...' if len(description) > 30 else ''}"
+        )
 
         return True
 
@@ -324,7 +369,7 @@ class FinanceUtils:
         valid_types = ['credit', 'debit', 'transfer']  # Changed to sorted list
         if filter_type and filter_type.lower() not in valid_types:
             self.logger.error(f"Invalid filter type: {filter_type}")
-            print(f"Error: Filter type must be one of {', '.join(valid_types)} or empty.")
+            print(f"{self.color['red']}Error: Filter type must be one of {', '.join(valid_types)} or empty.{self.color['reset']}")
             return False
         
         # Validate filter_year
@@ -334,11 +379,11 @@ class FinanceUtils:
                 filter_year = int(filter_year)
                 if not (1900 <= filter_year <= current_year):
                     self.logger.error(f"Invalid filter year: {filter_year}")
-                    print(f"Error: Year must be between 1900 and {current_year}.")
+                    print(f"{self.color['red']}Error: Year must be between 1900 and {current_year}.{self.color['reset']}")
                     return False
             except ValueError:
                 self.logger.error(f"Invalid filter year input: {filter_year}")
-                print("Error: Year must be an integer.")
+                print(f"{self.color['red']}Error: Year must be an integer.{self.color['reset']}")
                 return False
             
         # Apply filters
@@ -379,7 +424,7 @@ class FinanceUtils:
                 for t in page_transactions
             ]
 
-            headers = ['ID', 'Date', 'Customer', 'Amount', 'Type', 'Description']
+            headers = [f"{self.color['yellow']}{h}{self.color['reset']}" for h in ['ID', 'Date', 'Customer', 'Amount', 'Type', 'Description']]
             filter_msg = f"{filter_type.capitalize()} transactions in {filter_year}" if filter_type and filter_year else \
                          f"{filter_type.capitalize()} transactions" if filter_type else \
                          f"Transactions in {filter_year}" if filter_year else "All transactions"
@@ -446,7 +491,7 @@ class FinanceUtils:
             transaction['type'].capitalize(),
             transaction['description'][:30] + ('...' if len(transaction['description']) > 30 else '')
         ]]
-        headers = ['ID', 'Date', 'Customer', 'Amount', 'Type', 'Description']
+        headers = [f"{self.color['yellow']}{h}{self.color['reset']}" for h in ['ID', 'Date', 'Customer', 'Amount', 'Type', 'Description']]
         print(tabulate(table_data, headers=headers, tablefmt='grid'))
 
         print("Enter new values (press Enter to keep current, 'cancel' to abort)")
@@ -568,6 +613,13 @@ class FinanceUtils:
         ]]
         print(tabulate(table_data, headers=headers, tablefmt='grid'))
 
+        # Log transaction update
+        self.logger.info(
+            f"Updated transaction ID {transaction_id}: customer_id={customer_id}, "
+            f"date={date_obj.strftime('%Y-%m-%d')}, amount={amount:.2f}, type={type_input}, "
+            f"description={description[:30]}{'...' if len(description) > 30 else ''}"
+        )
+
         return True
     
     def delete_transaction(self):
@@ -609,22 +661,31 @@ class FinanceUtils:
             transaction['type'].capitalize(),
             transaction['description'][:30] + ('...' if len(transaction['description']) > 30 else '')
         ]]
-        headers = ['ID', 'Date', 'Customer', 'Amount', 'Type', 'Description']
+        headers = [f"{self.color['yellow']}{h}{self.color['reset']}" for h in ['ID', 'Date', 'Customer', 'Amount', 'Type', 'Description']]
         print(tabulate(table_data, headers=headers, tablefmt='grid'))
 
         # Confirm deletion
         while True:
-            confirm = input("Are you sure? (y/n): ").strip().lower()
-            if confirm == 'n' or confirm == 'cancel':
+            confirm = input(f"{self.color['yellow']}Are you sure?{self.color['reset']} (yes/no): ").strip().lower()
+            if confirm == 'no' or confirm == 'cancel':
                 print("Deletion cancelled.")
                 return False
-            if confirm == 'y':
+            if confirm == 'yes':
                 break
-            print("Please enter 'y', 'n', or 'cancel'.")
+            print("Please enter 'yes', 'no', or 'cancel'.")
 
         # Delete transaction
         self.transactions.remove(transaction)
-        print(f"Transaction {transaction_id} deleted successfully!")
+        print(f"{self.color['green']}Transaction {transaction_id} deleted successfully!{self.color['reset']}")
+
+        # Log transaction deletion
+        self.logger.info(
+            f"Deleted transaction ID {transaction_id}: customer_id={transaction['customer_id']}, "
+            f"date={transaction['date'].strftime('%Y-%m-%d')}, amount={transaction['amount']:.2f}, "
+            f"type={transaction['type']}, "
+            f"description={transaction['description'][:30]}{'...' if len(transaction['description']) > 30 else ''}"
+        )
+
         return True
     
     def analyze_transactions(self):
@@ -656,14 +717,14 @@ class FinanceUtils:
         net_balance = total_credit + total_debit
 
         # Print summary
-        print("\nFinancial Summary:")
-        print(f"Total Credits: ${total_credit:,.2f}")
-        print(f"Total Debits: ${total_debit:,.2f}")
-        print(f"Total Transfers: ${total_transfer:,.2f}")
-        print(f"Net Balance: ${net_balance:,.2f}")
-        print(f"By type: ")
+        print(f"\n{self.color['cyan']}Financial Summary:{self.color['reset']}")
+        print(f"{self.color['yellow']}Total Credits:{self.color['reset']} ${total_credit:,.2f}")
+        print(f"{self.color['yellow']}Total Debits:{self.color['reset']} ${total_debit:,.2f}")
+        print(f"{self.color['yellow']}Total Transfers:{self.color['reset']} ${total_transfer:,.2f}")
+        print(f"{self.color['yellow']}Net Balance:{self.color['reset']} ${net_balance:,.2f}")
+        print(f"{self.color['yellow']}By type:{self.color['reset']} ")
         for t in type_sums:
-            print(f"  {t.capitalize()}: ${type_sums[t]:,.2f}")
+            print(f"  {self.color['yellow']}{t.capitalize()}:{self.color['reset']} ${type_sums[t]:,.2f}")
 
         return True
     
@@ -699,6 +760,7 @@ class FinanceUtils:
                     })
                 
                 print(f"Transactions saved to '{filename}'.")
+                self.logger.info(f"Saved {len(self.transactions)} transactions to '{filename}'")
             return True
         
         except IOError as e:
@@ -783,6 +845,6 @@ class FinanceUtils:
                 return True
         except IOError as e:
             self.logger.error(f"Failed to generate report: {e}")
-            print(f"Error: Failed to generate report '{filename}': {e}")
+            print(f"{self.color['red']}Error: Failed to generate report '{filename}':{self.color['reset']} {e}")
             return False
 
