@@ -35,14 +35,17 @@ def main():
             else:
                 print(f"Transaction not added.")
         elif choice == '3':
-            filter_type = input("Enter type to filter (credit/debit/transfer, or press Enter for all): ").strip()
-            if not filter_type:
-                filter_type = None
-            filter_year = input("Enter year to filter (e.g., 2020, or press Enter for all): ").strip()
-            if not filter_year:
-                filter_year = None
-            if not finance.view_transactions(filter_type, filter_year):
-                print("No transactions displayed.")
+            if finance.transactions:
+                filter_type = input("Enter type to filter (credit/debit/transfer, or press Enter for all): ").strip()
+                if not filter_type:
+                    filter_type = None
+                filter_year = input("Enter year to filter (e.g., 2020, or press Enter for all): ").strip()
+                if not filter_year:
+                    filter_year = None
+                if not finance.view_transactions(filter_type, filter_year):
+                    print("No transactions displayed.")
+            else:
+                print("No transactions loaded. Please load transactions first.")
         elif choice == '4':
             if finance.update_transaction():
                 print(f"{green}Transaction updated in memory. Save to persist changes.{reset}")

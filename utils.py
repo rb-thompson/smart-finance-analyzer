@@ -668,7 +668,8 @@ class FinanceUtils:
             bool: True if transaction is deleted, False if cancelled or invalid.
         """
         if not self.transactions:
-            print("No transactions to delete.")
+            self.logger.info("Attempted to delete transaction with no transactions loaded")
+            print("No transactions loaded. Please load a transaction file first.")
             return False
 
         print("\nDelete Transaction (enter 'cancel' to abort)")
@@ -731,7 +732,8 @@ class FinanceUtils:
         Analyze transactions and print summary stats. 
         """
         if not self.transactions:
-            print("No transactions to analyze.")
+            self.logger.info("Attempted to analyze transactions with no transactions loaded")
+            print("No transactions loaded. Please load a transaction file first.")
             return False
         
         # Initialize analysis data
@@ -777,7 +779,8 @@ class FinanceUtils:
             bool: True if saving succeeds, False otherwise.
         """
         if not self.transactions:
-            print("No transactions to save.")
+            self.logger.info("Attempted to save transactions with no transactions loaded")
+            print("No transactions loaded. Please load a transaction file first.")
             return False
         
         try:
@@ -834,7 +837,8 @@ class FinanceUtils:
             bool: True if report generation succeeds, False otherwise.
         """
         if not self.transactions:
-            print("No transactions to report.")
+            self.logger.info("Attempted to generate report with no transactions loaded")
+            print("No transactions loaded. Please load a transaction file first.")
             return False
         
         try:
