@@ -818,17 +818,17 @@ class FinanceUtils:
         
     def generate_report(self, filename='report.txt'):
         """
-        Generate a report (financial summary) and save it to a text file.
-        This method summarizes the transactions and saves the analysis to a file.
+        Generate a financial report with yearly and quarterly breakdowns, top customers,
+        year-over-year growth, and anomaly detection, saving it to a text file.
 
         Summary includes:
-        - Date range of transactions
-        - Total number of transactions
-        - Total credits
-        - Total debits
-        - Total transfers
-        - Net balance
+        - Date range and total transactions
+        - Financial summary (credits, debits, transfers, net balance)
         - Breakdown by type (count and percentage)
+        - Yearly and quarterly breakdowns (credits, debits, transfers, net balance, counts)
+        - Top 5 customers by transaction volume
+        - Year-over-year growth for credits, debits, and net balance
+        - Anomalous transactions (amounts > 3 standard deviations from mean)
 
         Args:
             filename (str): Path to the report file.
@@ -838,73 +838,180 @@ class FinanceUtils:
         """
         if not self.transactions:
             self.logger.info("Attempted to generate report with no transactions loaded")
-            print("No transactions loaded. Please load a transaction file first.")
+            print(f"{self.color['red']}No transactions loaded. Please load a transaction file first.{self.color['reset']}")
             return False
         
         try:
-            # Add a timestamp to the report filename
+            # Add timestamp to filename
             timestamp = datetime.now().strftime('%Y%m%d')
             filename = f"report_{timestamp}.txt"
 
-            # Define stages for progress (e.g., compute totals, write file)
-            stages = 4  # Date range, totals, breakdown, file write
+            # Define stages for progress
+            stages = 8  # Date range, totals, type breakdown, yearly, quarterly, top customers, YoY, anomalies
             current_stage = 0
 
-            # Generate report
             with open(filename, 'w', encoding='utf-8') as file:
                 file.write("Financial Report\n")
-                file.write("=================\n")
-                
-                # Date range of transactions
+                file.write("=================\n\n")
+
+                # Date range and total transactions
                 dates = [t['date'] for t in self.transactions]
                 min_date = min(dates).strftime('%Y-%m-%d')
                 max_date = max(dates).strftime('%Y-%m-%d')
                 file.write(f"Date Range: {min_date} to {max_date}\n")
-                file.write(f"Total Transactions: {len(self.transactions)}\n")
+                file.write(f"Total Transactions: {len(self.transactions):,}\n")
                 file.write("\n")
                 current_stage += 1
                 self._display_progress_bar(current_stage, stages, "Generating Report")
 
-                # Calculate totals
+                # Financial summary
                 total_credit = sum(t['amount'] for t in self.transactions if t['type'] == 'credit')
-                total_debit = sum(abs(t['amount']) for t in self.transactions if t['type'] == 'debit')  # Use abs for display
-                total_transfer = sum(abs(t['amount']) for t in self.transactions if t['type'] == 'transfer')  # Use abs
-                net_balance = total_credit - total_debit  # Excludes transfers for balance
-                current_stage += 1
-                self._display_progress_bar(current_stage, stages, "Generating Report")
-
-                # Write totals to report
+                total_debit = sum(abs(t['amount']) for t in self.transactions if t['type'] == 'debit')
+                total_transfer = sum(abs(t['amount']) for t in self.transactions if t['type'] == 'transfer')
+                net_balance = total_credit - total_debit
                 file.write("Financial Summary:\n")
                 file.write(f"  Total Credits: ${total_credit:,.2f}\n")
                 file.write(f"  Total Debits: ${total_debit:,.2f}\n")
                 file.write(f"  Total Transfers: ${total_transfer:,.2f}\n")
                 file.write(f"  Net Balance: ${net_balance:,.2f}\n")
                 file.write("\n")
-                
-                # Breakdown by type (count and percentage)
+                current_stage += 1
+                self._display_progress_bar(current_stage, stages, "Generating Report")
+
+                # Breakdown by type
                 total_transactions = len(self.transactions)
                 credit_count = sum(1 for t in self.transactions if t['type'] == 'credit')
                 debit_count = sum(1 for t in self.transactions if t['type'] == 'debit')
                 transfer_count = sum(1 for t in self.transactions if t['type'] == 'transfer')
-                current_stage += 1
-                self._display_progress_bar(current_stage, stages, "Generating Report")
-                
                 file.write("Breakdown by Type:\n")
                 if total_transactions > 0:
                     credit_percentage = (credit_count / total_transactions) * 100
                     debit_percentage = (debit_count / total_transactions) * 100
                     transfer_percentage = (transfer_count / total_transactions) * 100
-                    file.write(f"  Credit: {credit_count} transactions ({credit_percentage:.2f}%)\n")
-                    file.write(f"  Debit: {debit_count} transactions ({debit_percentage:.2f}%)\n")
-                    file.write(f"  Transfer: {transfer_count} transactions ({transfer_percentage:.2f}%)\n")
+                    file.write(f"  Credit: {credit_count:,} transactions ({credit_percentage:.2f}%)\n")
+                    file.write(f"  Debit: {debit_count:,} transactions ({debit_percentage:.2f}%)\n")
+                    file.write(f"  Transfer: {transfer_count:,} transactions ({transfer_percentage:.2f}%)\n")
                 else:
                     file.write("  No transactions to analyze.\n")
-                
+                file.write("\n")
                 current_stage += 1
                 self._display_progress_bar(current_stage, stages, "Generating Report")
-                print(f"\nReport generated and saved to '{filename}'.")
-                return True
+
+                # Yearly and quarterly breakdown
+                yearly_data = {}
+                for t in self.transactions:
+                    year = t['date'].year
+                    quarter = (t['date'].month - 1) // 3 + 1  # Q1: Jan-Mar, Q2: Apr-Jun, etc.
+                    if year not in yearly_data:
+                        yearly_data[year] = {
+                            'credits': 0.0, 'debits': 0.0, 'transfers': 0.0, 'count': 0,
+                            'quarters': {1: {'credits': 0.0, 'debits': 0.0, 'transfers': 0.0, 'count': 0},
+                                        2: {'credits': 0.0, 'debits': 0.0, 'transfers': 0.0, 'count': 0},
+                                        3: {'credits': 0.0, 'debits': 0.0, 'transfers': 0.0, 'count': 0},
+                                        4: {'credits': 0.0, 'debits': 0.0, 'transfers': 0.0, 'count': 0}}
+                        }
+                    if t['type'] == 'credit':
+                        yearly_data[year]['credits'] += t['amount']
+                        yearly_data[year]['quarters'][quarter]['credits'] += t['amount']
+                    elif t['type'] == 'debit':
+                        yearly_data[year]['debits'] += abs(t['amount'])
+                        yearly_data[year]['quarters'][quarter]['debits'] += abs(t['amount'])
+                    elif t['type'] == 'transfer':
+                        yearly_data[year]['transfers'] += abs(t['amount'])
+                        yearly_data[year]['quarters'][quarter]['transfers'] += abs(t['amount'])
+                    yearly_data[year]['count'] += 1
+                    yearly_data[year]['quarters'][quarter]['count'] += 1
+                file.write("Breakdown by Year and Quarter:\n")
+                for year in sorted(yearly_data.keys()):
+                    data = yearly_data[year]
+                    net = data['credits'] - data['debits']
+                    file.write(f"  {year}:\n")
+                    file.write(f"    Total Credits: ${data['credits']:,.2f}\n")
+                    file.write(f"    Total Debits: ${data['debits']:,.2f}\n")
+                    file.write(f"    Total Transfers: ${data['transfers']:,.2f}\n")
+                    file.write(f"    Net Balance: ${net:,.2f}\n")
+                    file.write(f"    Transactions: {data['count']:,}\n")
+                    for q in range(1, 5):
+                        qdata = data['quarters'][q]
+                        if qdata['count'] > 0:
+                            qnet = qdata['credits'] - qdata['debits']
+                            file.write(f"    Q{q} (Jan-Mar {year}):\n" if q == 1 else
+                                    f"    Q{q} (Apr-Jun {year}):\n" if q == 2 else
+                                    f"    Q{q} (Jul-Sep {year}):\n" if q == 3 else
+                                    f"    Q{q} (Oct-Dec {year}):\n")
+                            file.write(f"      Credits: ${qdata['credits']:,.2f}\n")
+                            file.write(f"      Debits: ${qdata['debits']:,.2f}\n")
+                            file.write(f"      Transfers: ${qdata['transfers']:,.2f}\n")
+                            file.write(f"      Net Balance: ${qnet:,.2f}\n")
+                            file.write(f"      Transactions: {qdata['count']:,}\n")
+                file.write("\n")
+                current_stage += 1
+                self._display_progress_bar(current_stage, stages, "Generating Report")
+
+                # Top 5 customers by transaction volume
+                customer_totals = {}
+                for t in self.transactions:
+                    cid = t['customer_id']
+                    amount = abs(t['amount'])
+                    customer_totals[cid] = customer_totals.get(cid, 0.0) + amount
+                top_customers = sorted(customer_totals.items(), key=lambda x: x[1], reverse=True)[:5]
+                file.write("Top 5 Customers by Transaction Volume:\n")
+                for cid, total in top_customers:
+                    file.write(f"  Customer ID {cid}: ${total:,.2f}\n")
+                file.write("\n")
+                current_stage += 1
+                self._display_progress_bar(current_stage, stages, "Generating Report")
+
+                # Year-over-year growth
+                file.write("Year-over-Year Growth:\n")
+                years = sorted(yearly_data.keys())
+                for i in range(1, len(years)):
+                    prev_year = years[i-1]
+                    curr_year = years[i]
+                    prev_data = yearly_data[prev_year]
+                    curr_data = yearly_data[curr_year]
+                    credit_growth = ((curr_data['credits'] - prev_data['credits']) / prev_data['credits'] * 100) if prev_data['credits'] != 0 else 0.0
+                    debit_growth = ((curr_data['debits'] - prev_data['debits']) / prev_data['debits'] * 100) if prev_data['debits'] != 0 else 0
+                    net_prev = prev_data['credits'] - prev_data['debits']
+                    net_curr = curr_data['credits'] - curr_data['debits']
+                    net_growth = ((net_curr - net_prev) / net_prev * 100) if net_prev != 0 else 0.0
+                    file.write(f"  {curr_year} vs {prev_year}:\n")
+                    file.write(f"    Credits: {credit_growth:+.2f}%\n")
+                    file.write(f"    Debits: {debit_growth:+.2f}%\n")
+                    file.write(f"    Net Balance: {net_growth:+.2f}%\n")
+                file.write("\n")
+                current_stage += 1
+                self._display_progress_bar(current_stage, stages, "Generating Report")
+
+                # Anomaly detection (transactions > 3 std deviations from mean)
+                amounts = [abs(t['amount']) for t in self.transactions]
+                if amounts:
+                    mean = sum(amounts) / len(amounts)
+                    variance = sum((x - mean) ** 2 for x in amounts) / len(amounts)
+                    std_dev = variance ** 0.5
+                    threshold = mean + 3 * std_dev
+                    anomalies = [(t['transaction_id'], t['amount'], t['date'].strftime('%Y-%m-%d'), t['customer_id'])
+                                for t in self.transactions if abs(t['amount']) > threshold]
+                    file.write("Anomalous Transactions (> 3 std dev from mean amount):\n")
+                    if anomalies:
+                        for tid, amount, date, cid in anomalies:
+                            file.write(f"  ID {tid}: ${amount:,.2f} on {date} (Customer {cid})\n")
+                    else:
+                        file.write("  No anomalies detected.\n")
+                else:
+                    file.write("  No transactions to analyze for anomalies.\n")
+                current_stage += 1
+                self._display_progress_bar(current_stage, stages, "Generating Report")
+
+            # Final progress update and success message
+            current_stage += 1
+            self._display_progress_bar(current_stage, stages, "Generating Report")
+            print()  # Newline after progress bar
+            print(f"{self.color['green']}Report generated and saved to '{filename}'.{self.color['reset']}")
+            self.logger.info(f"Generated report: '{filename}'")
+            return True
+        
         except IOError as e:
             self.logger.error(f"Failed to generate report: {e}")
-            print(f"{self.color['red']}Error: Failed to generate report '{filename}':{self.color['reset']} {e}")
+            print(f"{self.color['red']}Error: Failed to generate report '{filename}': {self.color['reset']}{e}")
             return False

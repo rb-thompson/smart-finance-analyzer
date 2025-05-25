@@ -52,3 +52,6 @@
 2025-05-25 13:32:44,748 - INFO - Attempted to analyze transactions with no transactions loaded
 2025-05-25 13:32:55,587 - INFO - Attempted to save transactions with no transactions loaded
 2025-05-25 13:32:58,464 - INFO - Attempted to generate report with no transactions loaded
+2025-05-25 13:48:09,425 - INFO - Loaded 100002 transactions from 'financial_transactions.csv'
+2025-05-25 13:48:09,432 - INFO - Created backup: 'snapshots\backup_20250525_134809.csv'
+2025-05-25 13:48:14,092 - INFO - Generated report: 'report_20250525.txt'
