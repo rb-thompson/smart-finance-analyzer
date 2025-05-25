@@ -176,3 +176,4 @@
 2025-05-23 13:54:08,719 - ERROR - Row 494: Negative amount '-254.53'
 2025-05-23 13:54:08,719 - ERROR - Row 501: Negative amount '-73.0'
 2025-05-23 13:55:56,444 - ERROR - Transaction ID not found: '5'
+2025-05-25 08:11:02,807 - ERROR - Invalid transaction type input: loan

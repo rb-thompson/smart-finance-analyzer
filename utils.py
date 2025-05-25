@@ -7,6 +7,7 @@ from tabulate import tabulate
 class FinanceUtils:
     """Class to manage financial transactions with CRUD operations and analysis."""
 
+    # Initialize the class with an empty transactions list and configure logging.
     def __init__(self):
         """Initialize transactions list and configure logging."""
         self.transactions = []
@@ -25,18 +26,30 @@ class FinanceUtils:
             self.logger.addHandler(console_handler)
             self.file_handler = None
 
+    # Ensure file handler is closed when instance is destroyed.
     def __del__(self):
         """Ensure file handler is closed when instance is destroyed."""
         if hasattr(self, 'file_handler') and self.file_handler:
             self.file_handler.close()
             self.logger.removeHandler(self.file_handler)
 
+    # Helper method to find a transaction by its ID.
+    # This method is used internally to retrieve a transaction for updating or deleting.
     def _get_transaction_by_id(self, transaction_id):
         """Helper method to find a transaction by its ID."""
         for t in self.transactions:
             if t['transaction_id'] == transaction_id:
                 return t
         return None
+
+    # Clear the terminal screen for a cleaner user interface.
+    def clear_terminal(self):
+        """Clear the terminal screen for a cleaner user interface."""
+        try:
+            # Use 'cls' for Windows, 'clear' for Unix-based systems
+            os.system('cls' if os.name == 'nt' else 'clear')
+        except Exception as e:
+            self.logger.error(f"Failed to clear terminal: {e}")
 
     def load_transactions(self, filename='financial_transactions.csv'):
         """

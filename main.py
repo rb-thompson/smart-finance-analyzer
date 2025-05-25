@@ -3,6 +3,7 @@ from utils import FinanceUtils
 def main():
     """Main program for Smart Finance Analyzer."""
     finance = FinanceUtils()
+    finance.clear_terminal()  # Clear terminal before showing menu
 
     while True:
         print("\nSmart Finance Analyzer")
@@ -62,6 +63,7 @@ def main():
             else:
                 print("Failed to generate report.")
         elif choice == '9':
+            finance.clear_terminal()  # Clear terminal upon exit
             print("Exiting the program.")
             break
         else:
