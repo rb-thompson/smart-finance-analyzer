@@ -79,6 +79,25 @@ class FinanceUtils:
                 return t
         return None
 
+    # Helper method to display a retro-style asterisk progress bar.
+    def _display_progress_bar(self, progress, total, prefix="Processing"):
+        """Display a retro-style asterisk progress bar."""
+        try:
+            import sys
+            import math
+            # Calculate percentage and number of asterisks (max 5)
+            percent = progress / total if total > 0 else 1.0
+            asterisks = min(5, math.ceil(percent * 5))
+            spaces = 5 - asterisks
+            bar = f"[{self.color['yellow']}{'*' * asterisks}{' ' * spaces}{self.color['reset']}]"
+            # Print in place with carriage return
+            sys.stdout.write(f"\r{prefix}: {bar} {int(percent * 100)}%")
+            sys.stdout.flush()
+        except Exception as e:
+            self.logger.error(f"Failed to display progress bar: {e}")
+            # Fallback to plain text
+            print(f"{prefix}: {int((progress / total) * 100 if total > 0 else 100)}%")
+
     # Clear the terminal screen for a cleaner user interface.
     def clear_terminal(self):
         """Clear the terminal screen for a cleaner user interface."""
@@ -104,6 +123,13 @@ class FinanceUtils:
 
         try:
             with open(filename, mode='r', encoding='utf-8') as file:
+                total_rows = sum(1 for _ in file) - 1  # Exclude header
+            if total_rows <= 0:
+                self.logger.error(f"No valid transactions in '{filename}'")
+                print(f"Error: No valid transactions in CSV")
+                return False
+        
+            with open(filename, mode='r', encoding='utf-8') as file:
                 reader = csv.DictReader(file)
 
                 # Check required columns
@@ -113,6 +139,7 @@ class FinanceUtils:
                     print(f"Missing columns in CSV: {missing}")
                     return False
                 
+                processed_rows = 0
                 for row_num, row in enumerate(reader, start=2):
                     try:
                         # Validate transaction_id
@@ -182,9 +209,18 @@ class FinanceUtils:
                         }
                         self.transactions.append(transaction)
 
+                        # Update progress bar every 1% of rows
+                        processed_rows += 1
+                        if processed_rows % max(1, total_rows // 100) == 0:
+                            self._display_progress_bar(processed_rows, total_rows, "Loading")
+
                     except KeyError as e:
                         self.logger.error(f"Row {row_num}: Missing column {e}")
                         continue
+
+                # Final progress update
+                self._display_progress_bar(processed_rows, total_rows, "Loading")
+                print()  # Newline after progress bar
 
                 if not self.transactions:
                     self.logger.error(f"No valid transactions in '{filename}'")
@@ -362,6 +398,7 @@ class FinanceUtils:
 
     def view_transactions(self, filter_type=None, filter_year=None):
         if not self.transactions:
+            self.logger.info("Attempted to view transactions with no transactions loaded")
             print("No transactions to display.")
             return False
         
@@ -434,7 +471,7 @@ class FinanceUtils:
             # Navigation prompt
             if total_pages == 1:
                 break
-            print("\nEnter command (start, next, prev, end, exit):")
+            print(f"\n{self.color['yellow']}Enter command{self.color['reset']} (start, next, prev, end, exit):")
             command = input("> ").strip().lower()
             if command == 'exit':
                 break
@@ -460,7 +497,8 @@ class FinanceUtils:
             bool: True if transaction is updated, False if cancelled or invalid.
         """
         if not self.transactions:
-            print("No transactions to update.")
+            self.logger.info("Attempted to update transaction with no transactions loaded")
+            print("No transactions loaded. Please load a transaction file first.")
             return False
 
         print("\nUpdate Transaction (enter 'cancel' to abort)")
@@ -743,13 +781,13 @@ class FinanceUtils:
             return False
         
         try:
+            total_transactions = len(self.transactions) # Track total transactions for progress bar
             with open(filename, mode='w', encoding='utf-8', newline='') as file:
                 fieldnames = ['transaction_id', 'date', 'customer_id', 'amount', 'type', 'description']
                 writer = csv.DictWriter(file, fieldnames=fieldnames)
                 writer.writeheader()
                 
-                for transaction in self.transactions:
-                    # Write each transaction
+                for i, transaction in enumerate(self.transactions, 1):
                     writer.writerow({
                         'transaction_id': transaction['transaction_id'],
                         'date': transaction['date'].strftime('%Y-%m-%d'),
@@ -758,6 +796,13 @@ class FinanceUtils:
                         'type': transaction['type'],
                         'description': transaction['description']
                     })
+                    # Update progress bar every 1% of transactions
+                    if i % max(1, total_transactions // 100) == 0:
+                        self._display_progress_bar(i, total_transactions, f"{self.color['yellow']}Saving{self.color['reset']}")
+
+                # Final progress update
+                self._display_progress_bar(total_transactions, total_transactions, f"{self.color['yellow']}Saving{self.color['reset']}")
+                print()  # Newline after progress bar
                 
                 print(f"Transactions saved to '{filename}'.")
                 self.logger.info(f"Saved {len(self.transactions)} transactions to '{filename}'")
@@ -797,6 +842,10 @@ class FinanceUtils:
             timestamp = datetime.now().strftime('%Y%m%d')
             filename = f"report_{timestamp}.txt"
 
+            # Define stages for progress (e.g., compute totals, write file)
+            stages = 4  # Date range, totals, breakdown, file write
+            current_stage = 0
+
             # Generate report
             with open(filename, 'w', encoding='utf-8') as file:
                 file.write("Financial Report\n")
@@ -809,13 +858,17 @@ class FinanceUtils:
                 file.write(f"Date Range: {min_date} to {max_date}\n")
                 file.write(f"Total Transactions: {len(self.transactions)}\n")
                 file.write("\n")
+                current_stage += 1
+                self._display_progress_bar(current_stage, stages, "Generating Report")
 
                 # Calculate totals
                 total_credit = sum(t['amount'] for t in self.transactions if t['type'] == 'credit')
                 total_debit = sum(abs(t['amount']) for t in self.transactions if t['type'] == 'debit')  # Use abs for display
                 total_transfer = sum(abs(t['amount']) for t in self.transactions if t['type'] == 'transfer')  # Use abs
                 net_balance = total_credit - total_debit  # Excludes transfers for balance
-                
+                current_stage += 1
+                self._display_progress_bar(current_stage, stages, "Generating Report")
+
                 # Write totals to report
                 file.write("Financial Summary:\n")
                 file.write(f"  Total Credits: ${total_credit:,.2f}\n")
@@ -829,6 +882,8 @@ class FinanceUtils:
                 credit_count = sum(1 for t in self.transactions if t['type'] == 'credit')
                 debit_count = sum(1 for t in self.transactions if t['type'] == 'debit')
                 transfer_count = sum(1 for t in self.transactions if t['type'] == 'transfer')
+                current_stage += 1
+                self._display_progress_bar(current_stage, stages, "Generating Report")
                 
                 file.write("Breakdown by Type:\n")
                 if total_transactions > 0:
@@ -841,10 +896,11 @@ class FinanceUtils:
                 else:
                     file.write("  No transactions to analyze.\n")
                 
-                print(f"Report generated and saved to '{filename}'.")
+                current_stage += 1
+                self._display_progress_bar(current_stage, stages, "Generating Report")
+                print(f"\nReport generated and saved to '{filename}'.")
                 return True
         except IOError as e:
             self.logger.error(f"Failed to generate report: {e}")
             print(f"{self.color['red']}Error: Failed to generate report '{filename}':{self.color['reset']} {e}")
             return False
-
