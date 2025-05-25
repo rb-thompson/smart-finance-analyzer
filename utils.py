@@ -562,8 +562,6 @@ class FinanceUtils:
     def analyze_transactions(self):
         """
         Analyze transactions and print summary stats. 
-        
-        Save the analysis to analysis.txt
         """
         if not self.transactions:
             print("No transactions to analyze.")
@@ -598,22 +596,6 @@ class FinanceUtils:
         print(f"By type: ")
         for t in type_sums:
             print(f"  {t.capitalize()}: ${type_sums[t]:,.2f}")
-
-        # Save analysis to file
-        try:
-            with open('analysis.txt', 'w', encoding='utf-8') as file:
-                file.write("Financial Summary:\n")
-                file.write(f"Total Credits: ${total_credit:,.2f}\n")
-                file.write(f"Total Debits: ${total_debit:,.2f}\n")
-                file.write(f"Total Transfers: ${total_transfer:,.2f}\n")
-                file.write(f"Net Balance: ${net_balance:,.2f}\n")
-                file.write("By type:\n")
-                for t in type_sums:
-                    file.write(f"  {t.capitalize()}: ${type_sums[t]:,.2f}\n")
-            print("Analysis saved to 'analysis.txt'.")
-        except IOError as e:
-            self.logger.error(f"Failed to save analysis: {e}")
-            print(f"Error: Failed to save analysis to 'analysis.txt': {e}")
 
         return True
     
