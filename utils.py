@@ -18,7 +18,7 @@ class FinanceUtils:
 
         # Error handler for errors.txt
         try:
-            self.error_handler = logging.FileHandler('errors.txt', mode='a', encoding='utf-8')
+            self.error_handler = logging.FileHandler('logs/errors.txt', mode='a', encoding='utf-8')
             self.error_handler.setLevel(logging.ERROR)
             self.error_handler.setFormatter(formatter)
             self.logger.addHandler(self.error_handler)
@@ -32,7 +32,7 @@ class FinanceUtils:
 
         # Info handler for activity.txt
         try:
-            self.activity_handler = logging.FileHandler('activity.txt', mode='a', encoding='utf-8')
+            self.activity_handler = logging.FileHandler('logs/activity.txt', mode='a', encoding='utf-8')
             self.activity_handler.setLevel(logging.INFO)
             self.activity_handler.setFormatter(formatter)
             self.logger.addHandler(self.activity_handler)
@@ -844,7 +844,10 @@ class FinanceUtils:
         try:
             # Add timestamp to filename
             timestamp = datetime.now().strftime('%Y%m%d')
-            filename = f"report_{timestamp}.txt"
+            reports_dir = 'reports'
+            if not os.path.exists(reports_dir):
+                os.makedirs(reports_dir)
+            filename = os.path.join(reports_dir, f"report_{timestamp}.txt")
 
             # Define stages for progress
             stages = 8  # Date range, totals, type breakdown, yearly, quarterly, top customers, YoY, anomalies
