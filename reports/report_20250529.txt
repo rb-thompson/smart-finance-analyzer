@@ -1,0 +1,228 @@
+Financial Report
+=================
+
+Date Range: 2018-03-27 to 2025-05-29
+Total Transactions: 100,003
+
+Financial Summary:
+  Total Credits: $166,674,315.51
+  Total Debits: $166,218,204.74
+  Total Transfers: $168,008,721.73
+  Net Balance: $456,110.77
+
+Breakdown by Type:
+  Credit: 33,374 transactions (33.37%)
+  Debit: 33,297 transactions (33.30%)
+  Transfer: 33,332 transactions (33.33%)
+
+Breakdown by Year and Quarter:
+  2018:
+    Total Credits: $25,103,261.31
+    Total Debits: $25,885,274.11
+    Total Transfers: $26,225,006.79
+    Net Balance: $-782,012.80
+    Transactions: 15,455
+    Q1 (Jan-Mar 2018):
+      Credits: $403,024.06
+      Debits: $551,011.42
+      Transfers: $457,056.56
+      Net Balance: $-147,987.36
+      Transactions: 292
+    Q2 (Apr-Jun 2018):
+      Credits: $8,185,071.29
+      Debits: $8,147,988.61
+      Transfers: $8,820,101.16
+      Net Balance: $37,082.68
+      Transactions: 5,039
+    Q3 (Jul-Sep 2018):
+      Credits: $8,451,212.04
+      Debits: $8,588,849.66
+      Transfers: $8,731,033.73
+      Net Balance: $-137,637.62
+      Transactions: 5,173
+    Q4 (Oct-Dec 2018):
+      Credits: $8,063,953.92
+      Debits: $8,597,424.42
+      Transfers: $8,216,815.34
+      Net Balance: $-533,470.50
+      Transactions: 4,951
+  2019:
+    Total Credits: $33,066,772.34
+    Total Debits: $33,288,643.55
+    Total Transfers: $33,912,975.11
+    Net Balance: $-221,871.21
+    Transactions: 20,017
+    Q1 (Jan-Mar 2019):
+      Credits: $8,140,875.91
+      Debits: $8,572,238.71
+      Transfers: $8,259,187.74
+      Net Balance: $-431,362.80
+      Transactions: 4,918
+    Q2 (Apr-Jun 2019):
+      Credits: $8,368,818.76
+      Debits: $8,107,208.73
+      Transfers: $8,727,548.53
+      Net Balance: $261,610.03
+      Transactions: 5,056
+    Q3 (Jul-Sep 2019):
+      Credits: $8,298,476.58
+      Debits: $8,071,903.35
+      Transfers: $8,494,726.23
+      Net Balance: $226,573.23
+      Transactions: 4,991
+    Q4 (Oct-Dec 2019):
+      Credits: $8,258,601.09
+      Debits: $8,537,292.76
+      Transfers: $8,431,512.61
+      Net Balance: $-278,691.67
+      Transactions: 5,052
+  2020:
+    Total Credits: $33,837,428.81
+    Total Debits: $33,255,455.20
+    Total Transfers: $33,843,665.47
+    Net Balance: $581,973.61
+    Transactions: 20,105
+    Q1 (Jan-Mar 2020):
+      Credits: $8,365,456.64
+      Debits: $8,188,657.28
+      Transfers: $8,660,727.73
+      Net Balance: $176,799.36
+      Transactions: 5,040
+    Q2 (Apr-Jun 2020):
+      Credits: $8,332,001.88
+      Debits: $8,305,371.74
+      Transfers: $8,499,988.48
+      Net Balance: $26,630.14
+      Transactions: 5,012
+    Q3 (Jul-Sep 2020):
+      Credits: $8,675,774.74
+      Debits: $8,316,029.98
+      Transfers: $8,120,970.55
+      Net Balance: $359,744.76
+      Transactions: 4,991
+    Q4 (Oct-Dec 2020):
+      Credits: $8,464,195.55
+      Debits: $8,445,396.20
+      Transfers: $8,561,978.71
+      Net Balance: $18,799.35
+      Transactions: 5,062
+  2021:
+    Total Credits: $32,949,291.35
+    Total Debits: $32,997,033.69
+    Total Transfers: $33,298,752.48
+    Net Balance: $-47,742.34
+    Transactions: 19,759
+    Q1 (Jan-Mar 2021):
+      Credits: $8,164,212.92
+      Debits: $8,423,043.81
+      Transfers: $8,182,984.48
+      Net Balance: $-258,830.89
+      Transactions: 4,924
+    Q2 (Apr-Jun 2021):
+      Credits: $8,369,106.01
+      Debits: $8,276,518.33
+      Transfers: $8,208,015.40
+      Net Balance: $92,587.68
+      Transactions: 4,918
+    Q3 (Jul-Sep 2021):
+      Credits: $8,168,169.35
+      Debits: $7,771,479.36
+      Transfers: $8,224,021.81
+      Net Balance: $396,689.99
+      Transactions: 4,867
+    Q4 (Oct-Dec 2021):
+      Credits: $8,247,803.07
+      Debits: $8,525,992.19
+      Transfers: $8,683,730.79
+      Net Balance: $-278,189.12
+      Transactions: 5,050
+  2022:
+    Total Credits: $33,366,311.28
+    Total Debits: $33,098,667.74
+    Total Transfers: $32,620,008.18
+    Net Balance: $267,643.54
+    Transactions: 19,813
+    Q1 (Jan-Mar 2022):
+      Credits: $8,096,217.09
+      Debits: $7,916,576.74
+      Transfers: $7,926,085.92
+      Net Balance: $179,640.35
+      Transactions: 4,827
+    Q2 (Apr-Jun 2022):
+      Credits: $8,302,175.37
+      Debits: $8,631,915.47
+      Transfers: $8,291,724.28
+      Net Balance: $-329,740.10
+      Transactions: 4,991
+    Q3 (Jul-Sep 2022):
+      Credits: $8,461,935.31
+      Debits: $8,427,295.97
+      Transfers: $7,940,449.84
+      Net Balance: $34,639.34
+      Transactions: 5,025
+    Q4 (Oct-Dec 2022):
+      Credits: $8,505,983.51
+      Debits: $8,122,879.56
+      Transfers: $8,461,748.14
+      Net Balance: $383,103.95
+      Transactions: 4,970
+  2023:
+    Total Credits: $8,347,726.42
+    Total Debits: $7,693,130.45
+    Total Transfers: $8,106,813.70
+    Net Balance: $654,595.97
+    Transactions: 4,851
+    Q1 (Jan-Mar 2023):
+      Credits: $8,347,726.42
+      Debits: $7,693,130.45
+      Transfers: $8,106,813.70
+      Net Balance: $654,595.97
+      Transactions: 4,851
+  2025:
+    Total Credits: $3,524.00
+    Total Debits: $0.00
+    Total Transfers: $1,500.00
+    Net Balance: $3,524.00
+    Transactions: 3
+    Q2 (Apr-Jun 2025):
+      Credits: $3,524.00
+      Debits: $0.00
+      Transfers: $1,500.00
+      Net Balance: $3,524.00
+      Transactions: 3
+
+Top 5 Customers by Transaction Volume:
+  Customer ID 853: $672,412.93
+  Customer ID 30: $670,374.56
+  Customer ID 802: $666,947.78
+  Customer ID 115: $660,453.86
+  Customer ID 222: $658,742.40
+
+Year-over-Year Growth:
+  2019 vs 2018:
+    Credits: +31.72%
+    Debits: +28.60%
+    Net Balance: -71.63%
+  2020 vs 2019:
+    Credits: +2.33%
+    Debits: -0.10%
+    Net Balance: -362.30%
+  2021 vs 2020:
+    Credits: -2.62%
+    Debits: -0.78%
+    Net Balance: -108.20%
+  2022 vs 2021:
+    Credits: +1.27%
+    Debits: +0.31%
+    Net Balance: -660.60%
+  2023 vs 2022:
+    Credits: -74.98%
+    Debits: -76.76%
+    Net Balance: +144.58%
+  2025 vs 2023:
+    Credits: -99.96%
+    Debits: -100.00%
+    Net Balance: -99.46%
+
+Anomalous Transactions (> 3 std dev from mean amount):
+  No anomalies detected.
