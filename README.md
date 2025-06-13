@@ -67,7 +67,7 @@ A command-line tool that manages financial transactions, generates reports, and 
 - `financial_transactions.csv`: Stores transaction data.
 - `logs/errors.txt`: Logs errors during execution.
 - `logs/activity.txt`: Logs info messages and program operations.
-- `repots/report_YYYYMMDD.txt`: Outputs time-stamped financial summary reports.
+- `reports/report_YYYYMMDD.txt`: Outputs time-stamped financial summary reports.
 - `snapshots/backup_YYYYMMDD_TIME`: Stores timestamped CSV backups.
 - `csv_faker.py`: Generates test data using the Faker library (`pip install faker`).
 - `test_finance_utils.py`: Runs unit tests for file handling and validation [TBD].
