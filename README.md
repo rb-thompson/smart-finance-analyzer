@@ -1,13 +1,38 @@
 # Capstone Project: Smart Finance Analyzer
-
 A command-line tool that manages financial transactions, generates reports, and provides insights into spending patterns.
 
-## Setup
-1. Ensure Python 3 is installed.
-2. Install the `tabulate` library: `pip install tabulate`.
-4. Run the program with `python main.py`.
+## 🚀 Getting Started  
 
-## Features
+### Prerequisites
+- Python 3.12 or higher
+- pip
+
+### Quick Setup
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/rb-thompson/smart-finance-analyzer.git
+   cd smart-finance-analyzer
+   ```  
+
+2. **Set up virtual environment (Recommended)**  
+   ```bash
+   python -m venv venv
+
+   source venv/bin/activate   # unix/macos
+
+   venv\Scripts\activate   # windows
+   ```
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```  
+  
+4. **Run the program**  
+   ```bash
+   python main.py
+   ```
+
+## ✨ Features
 
 - Load transactions from `financial_transactions.csv`, validating uniqueness of transaction IDs.
 - Add transactions with input validation and customer ID suggestions.
@@ -27,52 +52,32 @@ A command-line tool that manages financial transactions, generates reports, and 
 - Logs errors to `errors.txt` and successful operations (load, save, add, update, delete, report) plus empty transaction attempts to `activity.txt`.
 - Comprehensive input validation, error handling (e.g., file I/O, invalid data), and support for large datasets (e.g., 100,001 transactions).
 
-## Bonus Features
+### Bonus Features
 
 - Creates timestamped backups of the input CSV in `snapshots/` on load.
 - Supports year-based filtering for transaction views.
 - Generates detailed reports with statistics.
 - Uses [Tabulate](https://pypi.org/project/tabulate/) for formatted table output.
-- Includes unit tests and a data-generator.
+- Includes partial unit tests and a data-generator.
 
-## Dependencies
-- `tabulate` (`pip install tabulate`): For formatted table output in the CLI.
-- (Optional) `faker` (`pip install faker`): For generating test data in `csv_faker.py`.
-- (Optional) `colorama` (`pip install colorama`): For colorized console output (cyan menu, green success, yellow headers, red errors). Falls back to plain text if not installed.
-
-## Files
+### Files
 
 - `utils.py`: Contains `FinanceUtils` class with core logic for transaction management.
 - `main.py`: Provides a menu-driven user interface.
 - `financial_transactions.csv`: Stores transaction data.
-- `errors.txt`: Logs errors during execution.
-- `activity.txt`: Logs info messages and program operations.
-- `report_YYYYMMDD.txt`: Outputs financial summary reports.
-- `snapshots/`: Stores timestamped CSV backups.
+- `logs/errors.txt`: Logs errors during execution.
+- `logs/activity.txt`: Logs info messages and program operations.
+- `repots/report_YYYYMMDD.txt`: Outputs time-stamped financial summary reports.
+- `snapshots/backup_YYYYMMDD_TIME`: Stores timestamped CSV backups.
 - `csv_faker.py`: Generates test data using the Faker library (`pip install faker`).
 - `test_finance_utils.py`: Runs unit tests for file handling and validation [TBD].
 
-## Usage
+## 📖 Usage
 
 1. Ensure `financial_transactions.csv` is in the project directory.
-2. Install required dependencies:
-    ```bash
-    pip install tabulate
-    ```
-
-    Install optional dependencies:
-    ```bash
-    pip install faker colorama
-    ```
-
-3. Run `python main.py` and select options 1–9 from the menu to manage transactions.
-
-## Testing
-
-- **Generate Test Data**: Run `python csv_faker.py` to create sample financial data tailored to a rural household spending.
-- **Run Unit Tests**: Execute `python test_finance_utils.py` to verify functionality, with descriptive console output for each test.
+2. Run `python main.py` and select options 1–9 from the menu to manage transactions.
 
 ## Author
 
-Code by [R. Brandon Thompson](https://www.linkedin.com/in/appaltech/) 
+Code by [R. Brandon Thompson](https://www.linkedin.com/in/appaltech/)  
 Licensed under the MIT License.

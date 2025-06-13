@@ -69,3 +69,9 @@
 2025-05-29 19:03:05,235 - INFO - Updated transaction ID 100004: customer_id=918, date=2025-05-29, amount=1500.00, type=transfer, description=House repairs for family membe...
 2025-05-29 22:34:31,971 - INFO - Saved 100003 transactions to 'financial_transactions.csv'
 2025-05-29 22:34:46,605 - INFO - Generated report: 'reports\report_20250529.txt'
+2025-05-30 08:30:19,580 - INFO - Loaded 100003 transactions from 'financial_transactions.csv'
+2025-05-30 08:30:19,592 - INFO - Created backup: 'snapshots\backup_20250530_083019.csv'
+2025-05-30 08:30:27,954 - INFO - Loaded 100003 transactions from 'financial_transactions.csv'
+2025-05-30 08:30:27,964 - INFO - Created backup: 'snapshots\backup_20250530_083027.csv'
+2025-06-05 14:57:45,145 - INFO - Loaded 100003 transactions from 'financial_transactions.csv'
+2025-06-05 14:57:45,153 - INFO - Created backup: 'snapshots\backup_20250605_145745.csv'
